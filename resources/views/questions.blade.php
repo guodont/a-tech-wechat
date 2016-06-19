@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','问题详情')
+@section('title','农科110-热门问题')
 
 @section('content')
     <div class="weui_panel weui_panel_access">
