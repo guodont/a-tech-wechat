@@ -15,4 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware'=>['web']], function (){
+    Route::get('users','UsersController@users');
+    Route::get('user/{openId}','UsersController@user');
+});
+
 Route::any('/wechat', 'WechatController@serve');
