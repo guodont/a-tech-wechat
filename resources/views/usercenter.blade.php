@@ -5,7 +5,7 @@
 @section('content')
     <div class="weui_msg">
         <div class="weui_icon_area">
-            <img src="{{ $user->getAvatar() }}" alt="">
+            <img style="max-height: 50px;max-width: 50px;" src="{{ $user->getAvatar() }}" alt="">
         </div>
     </div>
     <div class="weui_panel weui_panel_access">
