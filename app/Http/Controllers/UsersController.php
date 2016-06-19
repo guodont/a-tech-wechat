@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use EasyWeChat\Foundation\Application;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 use App\Http\Requests;
 
@@ -46,12 +47,20 @@ class UsersController extends Controller
     {
         $response = $this->wechat->oauth->scopes(['snsapi_userinfo'])
             ->redirect();
-        
+
         return $response;
     }
 
     public function bindAccount()
     {
         return view('bindaccount');
+    }
+
+    public function quesitons()
+    {
+        
+        $client = new Client();
+        $response = $client->get('http://sxnk110.workerhub.cn:9000/api/v1/questions');
+        return $response->getBody();
     }
 }
