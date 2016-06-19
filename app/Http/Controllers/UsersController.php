@@ -37,18 +37,18 @@ class UsersController extends Controller
 
     public function userCenter()
     {
-        $oauth = $this->wechat->oauth;
-        // 未登录
-        if (empty($_SESSION['wechat_user'])) {
-
-            $_SESSION['target_url'] = 'userCenter';
-
-            return $oauth->redirect();
-            // 这里不一定是return，如果你的框架action不是返回内容的话你就得使用
-            // $oauth->redirect()->send();
-        }
-//        $user = session('wechat.oauth_user'); // 拿到授权用户资料
-        $user = $_SESSION['wechat_user'];
+//        $oauth = $this->wechat->oauth;
+//        // 未登录
+//        if (empty($_SESSION['wechat_user'])) {
+//
+//            $_SESSION['target_url'] = 'userCenter';
+//
+//            return $oauth->redirect();
+//            // 这里不一定是return，如果你的框架action不是返回内容的话你就得使用
+//            // $oauth->redirect()->send();
+//        }
+        $user = session('wechat.oauth_user'); // 拿到授权用户资料
+//        $user = $_SESSION['wechat_user'];
 
         return view('usercenter', compact('user'));
     }
