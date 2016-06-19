@@ -22,6 +22,7 @@ Route::group(['middleware'=>['web']], function (){
     Route::get('/menu','MenuController@menu');
     Route::get('/menus','MenuController@menus');
     Route::get('/questions', 'QuestionController@questions');
+    Route::get('/question/{questionId}', 'QuestionController@question');
 });
 
 
