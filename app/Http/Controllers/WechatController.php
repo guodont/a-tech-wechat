@@ -48,7 +48,7 @@ class WechatController extends Controller
                             break;
                         case 'get':
                             $response = $client->get('http://www.baidu.com');
-                            return $response->getBody();
+                            return '返回状态码:'.$response->getStatusCode();
                             break;
                         default:
                             return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
