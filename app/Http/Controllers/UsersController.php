@@ -55,12 +55,4 @@ class UsersController extends Controller
     {
         return view('bindaccount');
     }
-
-    public function questions()
-    {
-        
-        $client = new Client();
-        $response = $client->get('http://sxnk110.workerhub.cn:9000/api/v1/questions');
-        return $response->getBody();
-    }
 }
