@@ -20,6 +20,7 @@ Route::group(['middleware'=>['web']], function (){
     Route::get('/user/{openId}','UsersController@user');
     Route::get('/menu','MenuController@menu');
     Route::get('/menus','MenuController@menus');
+    Route::get('/user/questions', 'UsersController@questions');
 });
 
 
@@ -27,7 +28,6 @@ Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
     Route::get('/auth', 'UsersController@auth');
     Route::get('/bindAccount', 'UsersController@bindAccount');
     Route::get('/userCenter', 'UsersController@userCenter');
-    Route::get('/user/questions', 'UsersController@questions');
 });
 
 Route::any('/wechat', 'WechatController@serve');
