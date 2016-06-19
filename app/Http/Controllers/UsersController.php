@@ -56,15 +56,20 @@ class UsersController extends Controller
     public function auth()
     {
 
-        $oauth = $this->wechat->oauth;
+//        $oauth = $this->wechat->oauth;
+//
+//        // 获取 OAuth 授权结果用户信息
+//        $user = $oauth->user();
+//
+//        $_SESSION['wechat_user'] = $user->toArray();
+//
+//        $targetUrl = empty($_SESSION['target_url']) ? '/' : $_SESSION['target_url'];
+//
+//        header('location:'. $targetUrl);
 
-        // 获取 OAuth 授权结果用户信息
-        $user = $oauth->user();
-
-        $_SESSION['wechat_user'] = $user->toArray();
-
-        $targetUrl = empty($_SESSION['target_url']) ? '/' : $_SESSION['target_url'];
-
-        header('location:'. $targetUrl);
+        $response = $this->wechat->oauth->scopes(['snsapi_userinfo'])
+            ->redirect();
+        
+        return $response;
     }
 }
