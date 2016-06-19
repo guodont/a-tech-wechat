@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 use App\Http\Requests;
 
@@ -13,7 +14,7 @@ class QuestionController extends Controller
     {
         $client = new Client();
         $response = $client->get('http://sxnk110.workerhub.cn:9000/api/v1/questions');
-        $questions = $response->getBody();
-        return view('questions', compact('questions'));
+        $questions = json_decode($response->getBody());
+        return view('questions', array('questions',$questions));
     }
 }

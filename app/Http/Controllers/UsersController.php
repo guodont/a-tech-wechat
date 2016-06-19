@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use EasyWeChat\Foundation\Application;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 
 use App\Http\Requests;
 
