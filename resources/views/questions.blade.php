@@ -8,7 +8,7 @@
             <div class="weui_panel_hd">热门问题</div>
             <div class="weui_panel_bd">
                 @foreach ($questions as $question)
-                <a href="./question/{{ $question->id }}}" class="weui_media_box weui_media_appmsg">
+                <a href="./question/{{ $question->id }}" class="weui_media_box weui_media_appmsg">
                     <div class="weui_media_hd">
                         <img class="weui_media_appmsg_thumb"
                              src="{{ explode(',',$question->images)[0] }}"
