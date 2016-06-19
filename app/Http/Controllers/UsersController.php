@@ -56,7 +56,7 @@ class UsersController extends Controller
         return view('bindaccount');
     }
 
-    public function quesitons()
+    public function questions()
     {
         
         $client = new Client();
