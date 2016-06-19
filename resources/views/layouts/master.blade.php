@@ -8,7 +8,8 @@
             height:100%;-webkit-tap-highlight-color:transparent
         }
         body{
-            overflow-x:hidden;background-color:#fbf9fe;    line-height: 1.6;
+            overflow-x:hidden;
+            line-height: 1.6;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
         .page_title{
