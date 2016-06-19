@@ -1,10 +1,11 @@
 @extends('layouts.master')
 
-@section('title', '个人中心')
+@section('title', '{{ $user->getUserName() }} 的个人中心')
 
 @section('content')
     <div class="weui_msg">
-        <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i>
+        <div class="weui_icon_area">
+            <img src="{{ $user->getAvatar() }}" alt="">
         </div>
     </div>
     <div class="weui_panel weui_panel_access">

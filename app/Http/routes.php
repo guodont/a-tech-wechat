@@ -23,3 +23,7 @@ Route::group(['middleware'=>['web']], function (){
 });
 
 Route::any('/wechat', 'WechatController@serve');
+
+Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
+    Route::get('/auth', 'UsersController@auth');
+});

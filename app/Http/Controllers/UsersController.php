@@ -34,4 +34,10 @@ class UsersController extends Controller
 
         return $user;
     }
+
+    public function auth()
+    {
+        $user = session('wechat.oauth_user'); // 拿到授权用户资料
+        return view('usercenter', compact('user'));
+    }
 }

@@ -41,8 +41,7 @@ class WechatController extends Controller
                 case 'text':
                     # 文字消息...
                     // TODO 处理消息 提交到 nk110.workerhub.cn:9000/question
-                    return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,
-                    我们的专家将尽快为您解答,解答后将直接回复给您。' ;
+                    return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
                     break;
                 case 'image':
                     # 图片消息...
