@@ -45,9 +45,6 @@
         .weui_media_bd{
             padding-left: 10px;
         }
-        .weui_media_box{
-            padding-bottom:0px !important;
-        }
         .hd {
             padding: 5px !important;
         }
