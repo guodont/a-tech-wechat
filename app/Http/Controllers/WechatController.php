@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use GuzzleHttp\Client;
 
 class WechatController extends Controller
 {
@@ -41,7 +42,19 @@ class WechatController extends Controller
                 case 'text':
                     # 文字消息...
                     // TODO 处理消息 提交到 nk110.workerhub.cn:9000/question
-                    return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
+                    $client = new GuzzleHttp\Client();
+                    switch ($message->Content) {
+                        case 'post':
+                            break;
+                        case 'get':
+                            $response = $client->get('http://www.baidu.com');
+                            return $response->getBody();
+                            break;
+                        default:
+                            return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
+                            break;
+                    }
+                    
                     break;
                 case 'image':
                     # 图片消息...
