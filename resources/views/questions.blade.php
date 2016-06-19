@@ -11,7 +11,7 @@
                 <a href="./question/{{ $question->id }}}" class="weui_media_box weui_media_appmsg">
                     <div class="weui_media_hd">
                         <img class="weui_media_appmsg_thumb"
-                             src="{{ split(',',$question->images,0) }}"
+                             src="{{ split(',',$question->images)[0] }}"
                              alt="">
                     </div>
                     <div class="weui_media_bd">
