@@ -45,6 +45,11 @@ class MenuController extends Controller
                         "url"  => "http://www.baidu.com/"
                     ],
                     [
+                        "type" => "view",
+                        "name" => "热门问题",
+                        "url"  => "http://wechat.workerhub.cn/questions"
+                    ],
+                    [
                         "type" => "click",
                         "name" => "绑定农科110账号",
                         "key"  => "NK110_BIND_ACCOUNT"

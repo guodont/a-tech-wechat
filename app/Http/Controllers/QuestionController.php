@@ -15,6 +15,6 @@ class QuestionController extends Controller
         $client = new Client();
         $response = $client->get('http://sxnk110.workerhub.cn:9000/api/v1/questions');
         $questions = json_decode($response->getBody());
-        return view('questions', array('questions',$questions));
+        return view('questions', ['questions' => $questions]);
     }
 }
