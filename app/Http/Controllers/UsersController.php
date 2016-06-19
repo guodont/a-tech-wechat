@@ -37,39 +37,14 @@ class UsersController extends Controller
 
     public function userCenter()
     {
-        $config = [
-            'oauth' => [
-                'scopes' => ['snsapi_userinfo'],
-                'callback' => '/auth',
-            ],
-        ];
-
-        $app = new Application($config);
-        $oauth = $app->oauth;
-
-        // 未登录
-        if (empty($_SESSION['wechat_user'])) {
-            $_SESSION['target_url'] = 'userCenter';
-            return $oauth->redirect();
-        }
-
-        // 已经登录过
         $user = session('wechat.oauth_user'); // 拿到授权用户资料
-
         return view('usercenter', compact('user'));
     }
 
     public function auth()
     {
-        $config = [
-            'oauth' => [
-                'scopes' => ['snsapi_userinfo'],
-                'callback' => '/auth',
-            ],
-        ];
-        
-        $app = new Application($config);
-        $oauth = $app->oauth;
+
+        $oauth = $this->wechat->oauth;
 
         // 获取 OAuth 授权结果用户信息
         $user = $oauth->user();
