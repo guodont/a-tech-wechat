@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', '{{ $user->getUserName() }} 的个人中心')
+@section('title', '{{ $user->getName() }} 的个人中心')
 
 @section('content')
     <div class="weui_msg">
