@@ -22,7 +22,7 @@ class QuestionController extends Controller
     {
         $client = new Client();
         $response = $client->get('http://sxnk110.workerhub.cn:9000/api/v1/question/'.$questionId);
-        $question = json_decode($response);
+        $question = json_decode($response->getBody());
         return view('question', compact('question'));
     }
 }
