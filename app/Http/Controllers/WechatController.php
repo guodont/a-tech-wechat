@@ -23,10 +23,26 @@ class WechatController extends Controller
             switch ($message->MsgType) {
                 case 'event':
                     # 事件消息...
+                    if ($message->Event == 'subscribe') {
+                        return '您好,欢迎关注农事易';
+                    }
+                    if ($message->Event == 'CLICK') {
+                        if ($message->EventKey == 'NK110_BIND_ACCOUNT') {
+                            return "<a href='http://wechat.workerhub.cn/bindAccount'>点此绑定农科110账号</a>";
+                        }
+                        if ($message->EventKey == 'NK110_AUTH') {
+                            return '<a href=\'http://wechat.workerhub.cn/auth\'>微信授权</a>';
+                        }
+                        if ($message->EventKey == 'NK110_ADD_QUESTION') {
+                            return '请用一段话描述您的问题,并直接回复给此公众号。问题提交成功后我们将返回给您信息。';
+                        }
+                    }
                     break;
                 case 'text':
                     # 文字消息...
-                    return '你好'.$userApi->get($message->FromUserName)->nickname;
+                    // TODO 处理消息 提交到 nk110.workerhub.cn:9000/question
+                    return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,
+                    我们的专家将尽快为您解答,解答后将直接回复给您。' ;
                     break;
                 case 'image':
                     # 图片消息...
