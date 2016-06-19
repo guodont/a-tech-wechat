@@ -42,7 +42,7 @@ class WechatController extends Controller
                 case 'text':
                     # 文字消息...
                     // TODO 处理消息 提交到 nk110.workerhub.cn:9000/question
-                    $client = new GuzzleHttp\Client();
+                    $client = new Client();
                     switch ($message->Content) {
                         case 'post':
                             break;
