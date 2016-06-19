@@ -25,9 +25,7 @@
             </section>
             <div class="weui_uploader_bd">
                 <ul class="weui_uploader_files">
-                    {{--@foreach(explode(',',$question->images) as $image)--}}
-                        {{--<li class="weui_uploader_file" style="background-image:url({{ $image }})"></li>--}}
-                    {{--@endforeach--}}
+
                 </ul>
             </div>
         </article>
