@@ -51,6 +51,7 @@ class WechatController extends Controller
                             return '返回状态码:'.$response->getStatusCode();
                             break;
                         default:
+                            // 先认证
                             return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
                             break;
                     }
@@ -58,7 +59,7 @@ class WechatController extends Controller
                     break;
                 case 'image':
                     # 图片消息...
-                    $response = $this->fetchFile($message->PicUrl, $message->FromUserName, $message->CreateTime);
+                    $response = $this->fetchFile($message->PicUrl, 'images', $message->FromUserName, $message->CreateTime);
                     switch ($response->getStatusCode()) {
                         case 200:
                             return '上传成功';
@@ -85,6 +86,7 @@ class WechatController extends Controller
                     break;
                 case 'voice':
                     # 语音消息...
+                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", 'wechat_voice'.$message->FromUserName.$message->CreateTime.'.'.$message->Format);
                     return $message->MediaId;
                     break;
                 case 'video':
@@ -109,10 +111,10 @@ class WechatController extends Controller
         return $wechat->server->serve();
     }
 
-    public function fetchFile($file_url='', $open_id='', $timestamp='')
+    public function fetchFile($file_url='', $file_type='images', $open_id='', $timestamp='')
     {
         $encodedURL = str_replace(array('+', '/'), array('-', '_'), base64_encode($file_url));
-        $encodedEntryURI = str_replace(array('+', '/'), array('-', '_'), base64_encode('nk110-images:wechat_'.$open_id.'_'.$timestamp));
+        $encodedEntryURI = str_replace(array('+', '/'), array('-', '_'), base64_encode('nk110-'.$file_type.':wechat_'.$open_id.'_'.$timestamp));
         $url = '/fetch/'.$encodedURL.'/to/'.$encodedEntryURI;
         $sign = hash_hmac('sha1', $url . "\n", env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
         $token =  env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
