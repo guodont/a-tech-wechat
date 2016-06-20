@@ -58,7 +58,30 @@ class WechatController extends Controller
                     break;
                 case 'image':
                     # 图片消息...
-                    return $message->PicUrl;
+                    $response = $this->fetchFile($message->PicUrl, $message->FromUserName, $message->CreateTime);
+                    switch ($response->getStatusCode) {
+                        case 200:
+                            return '上传成功';
+                            break;
+                        case 401:
+                            return 'token验证失败';
+                            break;
+                        case 400:
+                            return '请求报文格式错误';
+                            break;
+                        case 404:
+                            return '抓取资源不存在';
+                            break;
+                        case 478:
+                            return '源站返回404外，所有非200的response都返回478';
+                            break;
+                        case 599:
+                            return '服务端操作失败';
+                            break;
+                        default:
+                            return $message->PicUrl;
+                            break;
+                    }
                     break;
                 case 'voice':
                     # 语音消息...
@@ -84,5 +107,23 @@ class WechatController extends Controller
 //        Log::info('return response.');
 
         return $wechat->server->serve();
+    }
+
+    public function fetchFile($file_url='', $open_id='', $timestamp='')
+    {
+        $encodedURL = str_replace(array('+', '/'), array('-', '_'), base64_encode($file_url));
+        $encodedEntryURI = str_replace(array('+', '/'), array('-', '_'), base64_encode('nk110-images:wechat_'.$open_id.'_'.$timestamp));
+        $url = '/fetch/'.$encodedURL.'/to/'.$encodedEntryURI;
+        $sign = hash_hmac('sha1', $url . "\n", env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
+        $token =  env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
+        $client = new Client();
+        $response = $client->request('POST', 'http://iovip.qbox.me'.$url, [
+            'headers' => [
+                'Authorization' => 'QBox '.$token,
+                'Accept'     => 'application/json',
+                'Content-Type'      => 'application/x-www-form-urlencoded'
+            ]
+        ]);
+        return $response;
     }
 }
