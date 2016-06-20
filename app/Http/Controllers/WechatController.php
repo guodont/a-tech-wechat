@@ -87,7 +87,7 @@ class WechatController extends Controller
                     break;
                 case 'voice':
                     # 语音消息...
-                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/", 'wechat_voice'.$message->FromUserName.$message->CreateTime.'.'.$message->Format);
+                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", 'wechat_voice'.$message->FromUserName."_".$message->CreateTime);
                     return $message->MediaId;
                     break;
                 case 'video':
