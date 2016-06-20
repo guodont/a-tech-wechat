@@ -20,7 +20,8 @@ class WechatController extends Controller
 
         $wechat = app('wechat');
         $userApi = $wechat->user;
-        $wechat->server->setMessageHandler(function ($message) use ($userApi) {
+        $temporary = $wechat->material_temporary;
+        $wechat->server->setMessageHandler(function ($message) use ($userApi, $temporary) {
             switch ($message->MsgType) {
                 case 'event':
                     # 事件消息...
@@ -86,7 +87,6 @@ class WechatController extends Controller
                     break;
                 case 'voice':
                     # 语音消息...
-                    $temporary = EasyWeChat::material_temporary();
                     $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/", 'wechat_voice'.$message->FromUserName.$message->CreateTime.'.'.$message->Format);
                     return $message->MediaId;
                     break;
