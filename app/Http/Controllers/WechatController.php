@@ -59,7 +59,7 @@ class WechatController extends Controller
                 case 'image':
                     # 图片消息...
                     $response = $this->fetchFile($message->PicUrl, $message->FromUserName, $message->CreateTime);
-                    switch ($response->getStatusCode) {
+                    switch ($response->getStatusCode()) {
                         case 200:
                             return '上传成功';
                             break;
