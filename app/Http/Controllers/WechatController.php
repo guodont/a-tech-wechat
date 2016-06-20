@@ -58,9 +58,11 @@ class WechatController extends Controller
                     break;
                 case 'image':
                     # 图片消息...
+                    return $message->PicUrl;
                     break;
                 case 'voice':
                     # 语音消息...
+                    return $message->MediaId;
                     break;
                 case 'video':
                     # 视频消息...
