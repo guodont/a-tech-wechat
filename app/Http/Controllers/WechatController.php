@@ -9,6 +9,10 @@ use GuzzleHttp\Client;
 
 class WechatController extends Controller
 {
+
+
+    private $base_url = "http://sxnk110.workerhub.cn:9000/question";
+
     /**
      * 处理微信的请求消息
      *
@@ -17,7 +21,6 @@ class WechatController extends Controller
     public function serve()
     {
 //        Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
-        $base_url = "http://sxnk110.workerhub.cn:9030/#!/question/addQuestion";
         $wechat = app('wechat');
         $userApi = $wechat->user;
         $temporary = $wechat->material_temporary;
@@ -49,20 +52,20 @@ class WechatController extends Controller
                             break;
                         case 'get':
                             $response = $client->get('http://www.baidu.com');
-                            return '返回状态码:'.$response->getStatusCode();
+                            return '返回状态码:' . $response->getStatusCode();
                             break;
                         default:
-                            $question = array('categoryId' => '0', 'title' => $message->Content, 'content' => $message->Content);
+                            $question = array('categoryId' => '73', 'title' => $message->Content, 'content' => $message->Content);
                             // 先认证
-                            $response = $client->request('POST', $base_url, [
+                            $response = $client->request('POST', $this->base_url, [
                                 'headers' => [
                                     'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
-                                    'Accept'     => 'application/json',
-                                    'Content-Type'      => 'application/x-www-form-urlencoded'
+                                    'Accept' => 'application/json',
+                                    'Content-Type' => 'application/json'
                                 ],
                                 'body' => json_encode($question)
                             ]);
-                            return '状态码'.$response->getStatusCode();
+                            return '状态码' . $response->getStatusCode();
                             // switch ($response->getStatusCode()) {
                             //     case 200:
                             //         return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
@@ -73,7 +76,7 @@ class WechatController extends Controller
                             // }
                             break;
                     }
-                    
+
                     break;
                 case 'image':
                     # 图片消息...
@@ -104,7 +107,7 @@ class WechatController extends Controller
                     break;
                 case 'voice':
                     # 语音消息...
-                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", 'wechat_voice'.$message->FromUserName."_".$message->CreateTime);
+                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime);
                     return $message->MediaId;
                     break;
                 case 'video':
@@ -129,19 +132,19 @@ class WechatController extends Controller
         return $wechat->server->serve();
     }
 
-    public function fetchFile($file_url='', $file_type='images', $open_id='', $timestamp='')
+    public function fetchFile($file_url = '', $file_type = 'images', $open_id = '', $timestamp = '')
     {
         $encodedURL = str_replace(array('+', '/'), array('-', '_'), base64_encode($file_url));
-        $encodedEntryURI = str_replace(array('+', '/'), array('-', '_'), base64_encode('nk110-'.$file_type.':wechat_'.$open_id.'_'.$timestamp));
-        $url = '/fetch/'.$encodedURL.'/to/'.$encodedEntryURI;
+        $encodedEntryURI = str_replace(array('+', '/'), array('-', '_'), base64_encode('nk110-' . $file_type . ':wechat_' . $open_id . '_' . $timestamp));
+        $url = '/fetch/' . $encodedURL . '/to/' . $encodedEntryURI;
         $sign = hash_hmac('sha1', $url . "\n", env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
-        $token =  env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
+        $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
         $client = new Client();
-        $response = $client->request('POST', 'http://iovip.qbox.me'.$url, [
+        $response = $client->request('POST', 'http://iovip.qbox.me' . $url, [
             'headers' => [
-                'Authorization' => 'QBox '.$token,
-                'Accept'     => 'application/json',
-                'Content-Type'      => 'application/x-www-form-urlencoded'
+                'Authorization' => 'QBox ' . $token,
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded'
             ]
         ]);
         return $response;

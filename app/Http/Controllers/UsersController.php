@@ -40,7 +40,11 @@ class UsersController extends Controller
     {
         $user = session('wechat.oauth_user'); // 拿到授权用户资料
 
-        return view('usercenter', compact('user'));
+        $client = new Client();
+        $response = $client->get('http://sxnk110.workerhub.cn:9000/api/v1/questions');
+        $questions = json_decode($response->getBody());
+
+        return view('usercenter', compact('user','questions'));
     }
 
     public function auth()
