@@ -52,6 +52,7 @@ class WechatController extends Controller
                             return '返回状态码:'.$response->getStatusCode();
                             break;
                         default:
+                            $question = array('categoryId' => '0', 'title' => $message->Content, 'content' => $message->Content);
                             // 先认证
                             $response = $client->request('POST', $base_url, [
                                 'headers' => [
@@ -59,7 +60,7 @@ class WechatController extends Controller
                                     'Accept'     => 'application/json',
                                     'Content-Type'      => 'application/x-www-form-urlencoded'
                                 ],
-                                'form_params' => ['question' => $message->Content]
+                                'body' => json_encode($question)
                             ]);
                             return '状态码'.$response->getStatusCode();
                             // switch ($response->getStatusCode()) {
