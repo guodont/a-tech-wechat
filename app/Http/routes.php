@@ -12,15 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $wechat = app('wechat');
+
+    $qrcode = $wechat->qrcode;
+
+    $result = $qrcode->temporary(56, 3600);
+
+    return view('welcome', compact('result', 'qrcode'));
 });
 
 
-Route::group(['middleware'=>['web']], function (){
-    Route::get('/users','UsersController@users');
-    Route::get('/user/{openId}','UsersController@user');
-    Route::get('/menu','MenuController@menu');
-    Route::get('/menus','MenuController@menus');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/users', 'UsersController@users');
+    Route::get('/user/{openId}', 'UsersController@user');
+    Route::get('/menu', 'MenuController@menu');
+    Route::get('/menus', 'MenuController@menus');
     Route::get('/questions', 'QuestionController@questions');
     Route::get('/question/{questionId}', 'QuestionController@question');
 });

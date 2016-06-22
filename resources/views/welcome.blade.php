@@ -38,7 +38,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">欢迎关注农科110微信服务号:)</div>
+                <img src="{{ $qrcode->url($result->titcket) }}" alt="">
             </div>
         </div>
     </body>
