@@ -17,7 +17,7 @@ class WechatController extends Controller
     public function serve()
     {
 //        Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
-
+        $base_url = "http://sxnk110.workerhub.cn:9030/#!/question/addQuestion";
         $wechat = app('wechat');
         $userApi = $wechat->user;
         $temporary = $wechat->material_temporary;
@@ -53,7 +53,22 @@ class WechatController extends Controller
                             break;
                         default:
                             // 先认证
-                            return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
+                            $response = $client->request('POST', $base_url, [
+                                'headers' => [
+                                    'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
+                                    'Accept'     => 'application/json',
+                                    'Content-Type'      => 'application/x-www-form-urlencoded'
+                                ],
+                                'form_params' => ['question' => $message->Content]
+                            ]);
+                            switch ($response->getStatusCode()) {
+                                case 200:
+                                    return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
+                                    break;
+                                default:
+                                    return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交失败,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
+                                    break;
+                            }
                             break;
                     }
                     
