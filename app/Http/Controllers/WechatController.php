@@ -61,14 +61,15 @@ class WechatController extends Controller
                                 ],
                                 'form_params' => ['question' => $message->Content]
                             ]);
-                            switch ($response->getStatusCode()) {
-                                case 200:
-                                    return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
-                                    break;
-                                default:
-                                    return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交失败,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
-                                    break;
-                            }
+                            return '状态码'.$response->getStatusCode();
+                            // switch ($response->getStatusCode()) {
+                            //     case 200:
+                            //         return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
+                            //         break;
+                            //     default:
+                            //         return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交失败,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
+                            //         break;
+                            // }
                             break;
                     }
                     
