@@ -13,6 +13,7 @@ class WechatController extends Controller
 
 
     private $base_url = "http://sxnk110.workerhub.cn:9000/api/v1/question";
+    private $auth_url = "http://sxnk110.workerhub.cn:9000/api/v1/wechat_auth";
 
     /**
      * 处理微信的请求消息
@@ -57,7 +58,19 @@ class WechatController extends Controller
                             break;
                         default:
                             $question = array('categoryId' => '73', 'title' => $message->Content, 'content' => $message->Content);
-                            // 先认证
+                            //  先认证
+                            //  请求认证
+                            $auth_client = new Client();
+                            $auth_response = $auth_client->request('POST', $auth_url, [
+                                'headers' => [
+                                    'token' => base64_encode(hash_hmac("sha256", env("token", "test"), env("AESKey", "TUzMK0U321xLe241HfRA97OZhon0O7Rr7bSyA5Id"))),
+                                    'Accept' => 'application/json',
+                                    'Content-Type' => 'application/json'
+                                ],
+                                'body' => $message->FromUserName
+                            ]);
+                            Log::info('认证结果'.$auth_response->getStatusCode());
+
                             $client2 = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
 
                             Log::info('收到问题消息');
