@@ -66,7 +66,7 @@ class WechatController extends Controller
                                 'headers' => [
                                     'X-AUTH-TOKEN' => '2b80b635-e584-44fd-b991-5d0f6c187f5f',
                                     'Accept' => 'application/json',
-                                    'Content-Type' => 'application/x-www-form-urlencoded'
+                                    'Content-Type' => 'application/json'
                                 ],
                                 'body' => json_encode($question)
                             ]);
