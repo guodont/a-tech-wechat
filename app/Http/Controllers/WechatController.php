@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use GuzzleHttp\Client;
+use EasyWeChat\Support\Log;
 
 class WechatController extends Controller
 {
@@ -20,7 +21,7 @@ class WechatController extends Controller
      */
     public function serve()
     {
-//        Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
+        Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
         $wechat = app('wechat');
         $userApi = $wechat->user;
         $temporary = $wechat->material_temporary;
@@ -59,6 +60,8 @@ class WechatController extends Controller
                             // 先认证
                             $client2 = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
 
+                            Log::info('收到问题消息');
+                            
                             $response = $client2->request('POST', 'question', [
                                 'headers' => [
                                     'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
@@ -67,6 +70,9 @@ class WechatController extends Controller
                                 ],
                                 'body' => json_encode($question)
                             ]);
+
+                            Log::info('结果:'.$response->getStatusCode());
+                            Log::info('收到问题消息2');
 
 //                            return '返回结果:' . stream_get_contents($response->getBody());
 //                            return '返回结果:' . $response->getBody()->getContents();
