@@ -11,7 +11,7 @@ class WechatController extends Controller
 {
 
 
-    private $base_url = "http://sxnk110.workerhub.cn:9000/question";
+    private $base_url = "http://sxnk110.workerhub.cn:9000/api/v1/question";
 
     /**
      * 处理微信的请求消息
@@ -61,7 +61,7 @@ class WechatController extends Controller
                                 'headers' => [
                                     'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
                                     'Accept' => 'application/json',
-                                    'Content-Type' => 'application/json'
+                                    'Content-Type' => 'application/x-www-form-urlencoded'
                                 ],
                                 'body' => json_encode($question)
                             ]);
