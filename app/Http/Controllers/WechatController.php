@@ -57,9 +57,9 @@ class WechatController extends Controller
                         default:
                             $question = array('categoryId' => '73', 'title' => $message->Content, 'content' => $message->Content);
                             // 先认证
-                            $client = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
+                            $client2 = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
 
-                            $response = $client->request('GET', 'questions', [
+                            $response = $client2->request('POST', 'question', [
                                 'headers' => [
                                     'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
                                     'Accept' => 'application/json',
@@ -67,9 +67,11 @@ class WechatController extends Controller
                                 ],
                                 'body' => json_encode($question)
                             ]);
+
 //                            return '返回结果:' . stream_get_contents($response->getBody());
-                            return '返回结果:' . $response->getBody()->getContents();
-//                            return '状态码';
+//                            return '返回结果:' . $response->getBody()->getContents();
+                            return '返回结果:' . $response->getStatusCode();
+
                             // switch ($response->getStatusCode()) {
                             //     case 200:
                             //         return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
