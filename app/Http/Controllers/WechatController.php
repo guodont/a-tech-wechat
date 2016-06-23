@@ -59,14 +59,14 @@ class WechatController extends Controller
                             // 先认证
                             $client = new Client();
 
-//                            $response = $client->post('http://sxnk110.workerhub.cn:9000/api/v1/question', [
-//                                'headers' => [
-//                                    'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
-//                                    'Accept' => 'application/json',
-//                                    'Content-Type' => 'application/x-www-form-urlencoded'
-//                                ],
-//                                'body' => json_encode($question)
-//                            ]);
+                            $response = $client->post('http://sxnk110.workerhub.cn:9000/api/v1/question', [
+                                'headers' => [
+                                    'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
+                                    'Accept' => 'application/json',
+                                    'Content-Type' => 'application/x-www-form-urlencoded'
+                                ],
+                                'body' => json_encode($question)
+                            ]);
 //                            return '状态码' . $response->getStatusCode();
                             return '状态码';
                             // switch ($response->getStatusCode()) {
