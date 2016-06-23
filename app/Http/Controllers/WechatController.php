@@ -64,7 +64,7 @@ class WechatController extends Controller
                             
                             $response = $client2->request('POST', 'question', [
                                 'headers' => [
-                                    'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
+                                    'X-AUTH-TOKEN' => '2b80b635-e584-44fd-b991-5d0f6c187f5f',
                                     'Accept' => 'application/json',
                                     'Content-Type' => 'application/x-www-form-urlencoded'
                                 ],
