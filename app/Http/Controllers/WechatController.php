@@ -59,7 +59,7 @@ class WechatController extends Controller
                             // 先认证
                             $client = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
 
-                            $response = $client->request('POST', 'question', [
+                            $response = $client->request('GET', 'questions', [
                                 'headers' => [
                                     'X-AUTH-TOKEN' => '8023e7b5-2f12-4438-b287-286a4db392ae',
                                     'Accept' => 'application/json',

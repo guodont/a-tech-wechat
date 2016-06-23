@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9cb0a285-82b6-44f3-a6fe-7ba9873f5203" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/WechatController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/WechatController.php" />
     </list>
     <ignored path="a-tech-wechat.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,8 +70,8 @@
       <file leaf-file-name="WechatController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/WechatController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="66" column="34" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
+            <state relative-caret-position="315">
+              <caret line="68" column="60" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="60" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -411,7 +412,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33392000" />
+    <option name="totallyTimeSpent" value="33812000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -839,8 +840,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/WechatController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="66" column="34" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
+        <state relative-caret-position="315">
+          <caret line="68" column="60" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="60" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
