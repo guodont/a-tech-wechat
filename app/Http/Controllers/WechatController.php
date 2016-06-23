@@ -67,7 +67,7 @@ class WechatController extends Controller
                                 ],
                                 'body' => json_encode($question)
                             ]);
-                            return '返回结果:' . $response->getBody();
+                            return '返回结果:' . stream_get_contents($response->getBody());
 //                            return '状态码';
                             // switch ($response->getStatusCode()) {
                             //     case 200:
