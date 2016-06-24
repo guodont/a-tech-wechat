@@ -11,6 +11,10 @@ use EasyWeChat\Support\Log;
 class WechatController extends Controller
 {
 
+    private $base_url = "http://sxnk110.workerhub.cn:9000/api/v1/";
+    private $auth_url = "http://sxnk110.workerhub.cn:9000/api/v1/wechat_auth";
+
+
     /**
      * 处理微信的请求消息
      *
@@ -54,8 +58,21 @@ class WechatController extends Controller
                             break;
                         default:
                             $question = array('categoryId' => '73', 'title' => $message->Content, 'content' => $message->Content);
-                            // 先认证
-                            $client2 = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
+                            //  先认证
+                            //  请求认证
+                            $auth_client = new Client();
+                            $auth_response = $auth_client->request('POST', $this->auth_url, [
+                                'headers' => [
+                                    'WECHAT-AUTH-TOKEN' => base64_encode(hash_hmac("sha256", env("ATECH_TOKEN", "test"), env("ATECH_AES_KEY", "TUzMK0U321xLe241HfRA97OZhon0O7Rr7bSyA5Id"))),
+                                    'Accept' => 'application/json',
+                                    'Content-Type' => 'application/json'
+                                ],
+                                'body' => $message->FromUserName
+                            ]);
+
+                            Log::info('认证结果' . $auth_response->getStatusCode());
+
+                            $client2 = new Client(['base_uri' => $this->base_url]);
 
                             Log::info('收到问题消息');
 

@@ -3,7 +3,7 @@
 @section('title','绑定农科110账号')
 
 @section('content')
-    <form action="./">
+    <form action="./doBindAccount" method="post">
         <div class="weui_cells weui_cells_form">
             <div class="weui_cell">
                 <div class="weui_cell_hd">

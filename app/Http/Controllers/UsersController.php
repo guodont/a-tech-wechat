@@ -45,7 +45,7 @@ class UsersController extends Controller
         $response = $client->get('http://sxnk110.workerhub.cn:9000/api/v1/questions');
         $questions = json_decode($response->getBody());
 
-        return view('usercenter', compact('user','questions'));
+        return view('usercenter', compact('user', 'questions'));
     }
 
     public function auth()
@@ -64,19 +64,25 @@ class UsersController extends Controller
     public function doBindAccount()
     {
 
-        $question = array('categoryId' => '73', 'title' => 'ddddssss', 'content' => 'dddddd');
-        // 先认证
+        $user = session('wechat.oauth_user'); // 拿到授权用户资料
+        $openId = $user->getId();
+        $avatar = $user->getAvatar();
+        $userName = $user->getName();
+        $phone = Request::get('phone');
+        $password = Request::get('password');
+
+        $data = array('phone' => $phone, 'password' => $password, 'openId' => $openId, 'avatar' => $avatar, 'userName' => $userName);
+
         $client2 = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
 
-        Log::info('收到问题消息');
+        Log::info('绑定公众号');
 
-        $response = $client2->request('POST', 'question', [
+        $response = $client2->request('POST', 'bindWeChat', [
             'headers' => [
-                'X-AUTH-TOKEN' => '2b80b635-e584-44fd-b991-5d0f6c187f5f',
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json'
             ],
-            'body' => json_encode($question)
+            'body' => json_encode($data)
         ]);
 
         Log::info('结果:' . $response->getStatusCode());
@@ -86,8 +92,10 @@ class UsersController extends Controller
         $qrcode = $wechat->qrcode;
 
         $result = $qrcode->temporary(56, 3600);
+        
+        $code = $response->getStatusCode();
 
-        return view('welcome', compact('result', 'qrcode'));
+        return view('welcome', compact('result', 'qrcode', 'code'));
 
     }
 }

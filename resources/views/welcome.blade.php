@@ -38,6 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
+                <h2>{{ $code  }}}</h2>
                 <div class="title">欢迎关注农科110微信服务号:)</div>
                 <img src="{{ $qrcode->url($result->ticket) }}" alt="">
             </div>
