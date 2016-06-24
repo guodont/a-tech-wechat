@@ -59,26 +59,26 @@ class WechatController extends Controller
                         default:
                             $question = array('categoryId' => '73', 'title' => $message->Content, 'content' => $message->Content);
                             //  先认证
-                            //  请求认证
-                            $auth_client = new Client();
-                            $auth_response = $auth_client->request('POST', $this->auth_url, [
-                                'headers' => [
-                                    'WECHAT-AUTH-TOKEN' => base64_encode(hash_hmac("sha256", env("ATECH_TOKEN", "test"), env("ATECH_AES_KEY", "TUzMK0U321xLe241HfRA97OZhon0O7Rr7bSyA5Id"))),
-                                    'Accept' => 'application/json',
-                                    'Content-Type' => 'application/json'
-                                ],
-                                'body' => $message->FromUserName
-                            ]);
+                            //  请求认证 category=73
+//                            $auth_client = new Client();
+//                            $auth_response = $auth_client->request('POST', $this->auth_url, [
+//                                'headers' => [
+//                                    'WECHAT-AUTH-TOKEN' => base64_encode(hash_hmac("sha256", env("ATECH_TOKEN", "test"), env("ATECH_AES_KEY", "TUzMK0U321xLe241HfRA97OZhon0O7Rr7bSyA5Id"))),
+//                                    'Accept' => 'application/json',
+//                                    'Content-Type' => 'application/json'
+//                                ],
+//                                'body' => $message->FromUserName
+//                            ]);
 
-                            Log::info('认证结果' . $auth_response->getStatusCode());
+//                            Log::info('认证结果' . $auth_response->getStatusCode());
 
                             $client2 = new Client(['base_uri' => $this->base_url]);
 
                             Log::info('收到问题消息');
 
-                            $response = $client2->request('POST', 'question', [
+                            $response = $client2->request('POST', 'wechat/question', [
                                 'headers' => [
-                                    'X-AUTH-TOKEN' => '2b80b635-e584-44fd-b991-5d0f6c187f5f',
+                                    'WECHAT-OPEN-ID' => $message->FromUserName,
                                     'Accept' => 'application/json',
                                     'Content-Type' => 'application/json'
                                 ],
