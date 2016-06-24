@@ -66,10 +66,13 @@ class UsersController extends Controller
     public function doBindAccount(Request $request)
     {
 //        $user = session('wechat.oauth_user'); // 拿到授权用户资料
-        $user = $this->wechat->user->get($request->input('openId'));
-        $openId = $user->getId();
-        $avatar = $user->getAvatar();
-        $userName = $user->getName();
+//        $user = $this->wechat->user->get($request->input('openId'));
+//        $openId = $user->getId();
+//        $avatar = $user->getAvatar();
+//        $userName = $user->getName();
+        $openId = $request->input('openId');
+        $avatar = $request->input('avatar');
+        $userName = $request->input('name');
         $phone = $request->input('phone');
         $password = $request->input('password');
 

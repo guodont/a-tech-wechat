@@ -12,6 +12,8 @@
     </div>
     <form action="./doBindAccount" method="post">
         <input type="hidden" name="openId" value="{{ $user->getId() }}">
+        <input type="hidden" name="avatar" value="{{ $user->getAvatar() }}">
+        <input type="hidden" name="name" value="{{ $user->getName() }}">
         <div class="weui_cells weui_cells_form">
             <div class="weui_cell">
                 <div class="weui_cell_hd">
