@@ -30,13 +30,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/menus', 'MenuController@menus');
     Route::get('/questions', 'QuestionController@questions');
     Route::get('/question/{questionId}', 'QuestionController@question');
+    Route::post('/doBindAccount', 'UsersController@doBindAccount');
 });
 
 
 Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
     Route::get('/auth', 'UsersController@auth');
     Route::get('/bindAccount', 'UsersController@bindAccount');
-    Route::post('/doBindAccount', 'UsersController@doBindAccount');
     Route::get('/userCenter', 'UsersController@userCenter');
 });
 
