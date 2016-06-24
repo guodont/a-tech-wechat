@@ -58,13 +58,16 @@ class UsersController extends Controller
 
     public function bindAccount()
     {
-        return view('bindaccount');
+        $user = session('wechat.oauth_user'); // 拿到授权用户资料
+
+        return view('bindaccount', compact('user'));
     }
 
     public function doBindAccount()
     {
 
-        $user = session('wechat.oauth_user'); // 拿到授权用户资料
+//        $user = session('wechat.oauth_user'); // 拿到授权用户资料
+        $user = $this->wechat->user->get(Request::get('openId'));
         $openId = $user->getId();
         $avatar = $user->getAvatar();
         $userName = $user->getName();
@@ -92,7 +95,7 @@ class UsersController extends Controller
         $qrcode = $wechat->qrcode;
 
         $result = $qrcode->temporary(56, 3600);
-        
+
         return view('welcome', compact('result', 'qrcode'));
 
     }
