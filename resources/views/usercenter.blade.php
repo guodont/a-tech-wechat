@@ -7,6 +7,7 @@
         <div class="weui_icon_area">
             <img style="max-height: 50px;max-width: 50px;" src="{{ $user->getAvatar() }}" alt="">
         </div>
+        <p>{{ $user->getName() }}</p>
     </div>
     <div class="weui_panel weui_panel_access">
         <div class="question">
