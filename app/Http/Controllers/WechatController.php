@@ -11,9 +11,6 @@ use EasyWeChat\Support\Log;
 class WechatController extends Controller
 {
 
-
-    private $base_url = "http://sxnk110.workerhub.cn:9000/api/v1/question";
-
     /**
      * 处理微信的请求消息
      *
@@ -46,7 +43,7 @@ class WechatController extends Controller
                     break;
                 case 'text':
                     # 文字消息...
-                    // TODO 处理消息 提交到 nk110.workerhub.cn:9000/question
+                    // TODO 处理消息 提交到 sxnk110.workerhub.cn:9000/question
                     $client = new Client();
                     switch ($message->Content) {
                         case 'post':
@@ -61,7 +58,7 @@ class WechatController extends Controller
                             $client2 = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
 
                             Log::info('收到问题消息');
-                            
+
                             $response = $client2->request('POST', 'question', [
                                 'headers' => [
                                     'X-AUTH-TOKEN' => '2b80b635-e584-44fd-b991-5d0f6c187f5f',
@@ -71,21 +68,21 @@ class WechatController extends Controller
                                 'body' => json_encode($question)
                             ]);
 
-                            Log::info('结果:'.$response->getStatusCode());
+                            Log::info('结果:' . $response->getStatusCode());
                             Log::info('收到问题消息2');
 
 //                            return '返回结果:' . stream_get_contents($response->getBody());
 //                            return '返回结果:' . $response->getBody()->getContents();
-                            return '返回结果:' . $response->getStatusCode();
+//                            return '返回结果:' . $response->getStatusCode();
 
-                            // switch ($response->getStatusCode()) {
-                            //     case 200:
-                            //         return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
-                            //         break;
-                            //     default:
-                            //         return $userApi->get($message->FromUserName)->nickname .'您好,您的问题已经提交失败,我们的专家将尽快为您解答,解答后将直接回复给您。' ;
-                            //         break;
-                            // }
+                            switch ($response->getStatusCode()) {
+                                case 200:
+                                    return $userApi->get($message->FromUserName)->nickname . '您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。';
+                                    break;
+                                default:
+                                    return $userApi->get($message->FromUserName)->nickname . '您好,您的问题提交失败,请确保您已通过微信授权';
+                                    break;
+                            }
                             break;
                     }
 
