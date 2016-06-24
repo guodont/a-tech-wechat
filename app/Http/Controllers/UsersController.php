@@ -93,9 +93,7 @@ class UsersController extends Controller
 
         $result = $qrcode->temporary(56, 3600);
         
-        $code = $response->getStatusCode();
-
-        return view('welcome', compact('result', 'qrcode', 'code'));
+        return view('welcome', compact('result', 'qrcode'));
 
     }
 }
