@@ -176,20 +176,20 @@ class WechatController extends Controller
 //                        var_dump($ret);
 //                    }
 
-                    $persistentId = json_decode($transcoding->getBody()->getContents(),true)['persistentId'];
-
-                    // 查询状态
-                    $client = new Client();
-                    $url = 'http://api.qiniu.com/status/get/prefop?id=' . $persistentId;
-                    $response = $client->request('GET', $url);
-
-                    $data = json_decode($response->getBody()->getContents(),true);
-
-                    $newKey = $data['items'][0]['key'];
+//                    $persistentId = json_decode($transcoding->getBody()->getContents(), true)['persistentId'];
+//
+//                    // 查询状态
+//                    $client = new Client();
+//                    $url = 'http://api.qiniu.com/status/get/prefop?id=' . $persistentId;
+//                    $response = $client->request('GET', $url);
+//
+//                    $data = json_decode($response->getBody()->getContents(), true);
+//
+//                    $newKey = $data['items'][0]['key'];
 
                     // TODO 删除本地文件
 
-                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding->getBody()->getContents()) . '新文件名:' . $newKey;
+                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding->getBody()->getContents());
                     break;
                 case 'video':
                     # 视频消息...
@@ -237,7 +237,7 @@ class WechatController extends Controller
     {
         $url = '/pfop/';
 
-        $body = 'bucket=nk110-images&key=' . $file_name . '&fops=avthumb/mp3/ab/128k/ar/44100/acodec/libmp3lame&notifyURL=http://fake.com/qiniu/notify';
+        $body = 'bucket=nk110-images&key=' . $file_name . '&fops=avthumb/mp3/ab/128k/ar/44100/acodec/libmp3lame|saveas/' . base64_encode('nk110-images:' . $file_name . '_2') .'&pipeline=nk110-video-queue-1';
 
         $sign = hash_hmac('sha1', $url . "\n" . $body, env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
         $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
