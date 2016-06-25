@@ -15,5 +15,6 @@ class VerifyCsrfToken extends BaseVerifier
         //
         '/wechat',
         '/doBindAccount',
+        '/sendTempMsg',
     ];
 }
