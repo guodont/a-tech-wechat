@@ -129,9 +129,9 @@ class UsersController extends Controller
         $data = array(
             "first" => $first,
             "keyword1" => $keyword1,
-            "keyword2" => date('Y-m-d H:i', $keyword2),
+            "keyword2" => $keyword2,
             "keyword3" => $keyword3,
-            "keyword4" => date('Y-m-d H:i', $keyword4),
+            "keyword4" => $keyword4,
             "remark" => $remark,
         );
 
