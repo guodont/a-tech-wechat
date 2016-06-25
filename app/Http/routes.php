@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 Route::post('/doBindAccount', 'UsersController@doBindAccount');
 
-Route::get('/sendTempMsg', 'UsersController@sendTempMsg');
+Route::post('/sendTempMsg', 'UsersController@sendTempMsg');
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/users', 'UsersController@users');

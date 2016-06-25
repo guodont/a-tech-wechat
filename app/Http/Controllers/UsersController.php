@@ -112,56 +112,34 @@ class UsersController extends Controller
 
     }
 
-    public function sendTempMsg()
+    public function sendTempMsg(Request $request)
     {
 
-        /**
-         * 模板IDK_kz-KlSLOR0MyPJTxgZdKMd6xCkzY-o1VCWcyRgmF0
-        开发者调用模板消息接口时需提供模板ID
-        标题用户提问进展通知
-        行业IT科技 - 互联网|电子商务
-        详细内容
-        {{first.DATA}}
-        问题类型：{{keyword1.DATA}}
-        提问时间：{{keyword2.DATA}}
-        通知类型：{{keyword3.DATA}}
-        发生时间：{{keyword4.DATA}}
-        {{remark.DATA}}
-        在发送时，需要将内容中的参数（{{.DATA}}内为参数）赋值替换为需要的信息
-        内容示例
-        用户您好，您的提问已有回答
-        问题类型：高一数学
-        提问时间：2015-10-16 14：50
-        通知类型：该问题已有教师回答
-        发生时间：2015-10-16 16：50
-        详细结果请点击“详情”查看
-         */
 
-//        $userId = $request->input('openId');
-//        $avatar = $request->input('avatar');
-//        $userName = $request->input('name');
-//        $phone = $request->input('phone');
-//        $password = $request->input('password');
+        $userId = $request->input('openId');
+        $templateId = $request->input('templateId');
+        $url = $request->input('url');
+        $color = $request->input('color');
+        $data = json_decode($request->input('data'));
 
-        $userId = 'o451ewNvK3JukkMqr0BaXw_MnASI';
-        $templateId = 'K_kz-KlSLOR0MyPJTxgZdKMd6xCkzY-o1VCWcyRgmF0';
-        $url = 'http://wechat.workerhub.cn/question/92';
-        $color = '#FF0000';
-        $data = array(
-            "first"  => "用户您好，您的提问已有回答",
-            "keyword1"   => "信息",
-            "keyword2"  => "刚刚",
-            "keyword3"  => "新回答",
-            "keyword4"  => "2016-06-26",
-            "remark" => "详细结果请点击“详情”查看！",
-        );
+//        $userId = 'o451ewNvK3JukkMqr0BaXw_MnASI';
+//        $templateId = 'K_kz-KlSLOR0MyPJTxgZdKMd6xCkzY-o1VCWcyRgmF0';
+//        $url = 'http://wechat.workerhub.cn/question/92';
+//        $color = '#FF0000';
+//        $data = array(
+//            "first"  => "用户您好，您的提问已有回答",
+//            "keyword1"   => "信息",
+//            "keyword2"  => "刚刚",
+//            "keyword3"  => "新回答",
+//            "keyword4"  => "2016-06-26",
+//            "remark" => "详细结果请点击“详情”查看！",
+//        );
 
         $wechat = app('wechat');
 
         $notice = $wechat->notice;
 
-        $messageId = $notice->uses($templateId)->withUrl($url)->andData($data)->andReceiver($userId)->send();
-
+        $messageId = $notice->uses($templateId)->withUrl($url)->andData($data)->color($color)->andReceiver($userId)->send();
 
     }
 }
