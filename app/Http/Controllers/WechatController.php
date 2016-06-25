@@ -138,7 +138,7 @@ class WechatController extends Controller
                     break;
                 case 'voice':
                     # 语音消息...
-                    $voiceFileName = 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime;
+                    $voiceFileName = 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime . '.mp3';
                     // 下载到本地
                     $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", $voiceFileName);
                     // 上传到七牛
@@ -174,7 +174,7 @@ class WechatController extends Controller
 //                    }
 
                     // TODO 删除本地文件
-                    
+
                     return $message->MediaId . '上传结果:' . json_encode($ret);
                     break;
                 case 'video':
