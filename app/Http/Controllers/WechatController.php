@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use GuzzleHttp\Client;
 use EasyWeChat\Support\Log;
+// 引入鉴权类
+use Qiniu\Auth;
+
+// 引入上传类
+use Qiniu\Storage\UploadManager;
 
 class WechatController extends Controller
 {
@@ -109,7 +114,7 @@ class WechatController extends Controller
                     $response = $this->fetchFile($message->PicUrl, 'images', $message->FromUserName, $message->CreateTime);
                     switch ($response->getStatusCode()) {
                         case 200:
-                            return '上传成功';
+                            return '上传成功' . $response->getBody()->getContents();
                             break;
                         case 401:
                             return 'token验证失败';
@@ -133,8 +138,44 @@ class WechatController extends Controller
                     break;
                 case 'voice':
                     # 语音消息...
-                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime);
-                    return $message->MediaId;
+                    $voiceFileName = 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime;
+                    // 下载到本地
+                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", $voiceFileName);
+                    // 上传到七牛
+                    $accessKey = env("QI_NIU_ACCESS_KEY", "Access_Key");
+                    $secretKey = env("QI_NIU_SECRET_KEY", 'Secret_Key');
+
+                    // 构建鉴权对象
+                    $auth = new Auth($accessKey, $secretKey);
+
+                    // 要上传的空间
+                    $bucket = 'nk110-images';
+
+                    // 生成上传 Token
+                    $token = $auth->uploadToken($bucket);
+
+                    // 要上传文件的本地路径
+                    $filePath = '/home/banana/web/a-tech-wechat/storage/app/public/' . $voiceFileName . '.amr';
+
+                    // 上传到七牛后保存的文件名
+                    $key = $voiceFileName;
+
+                    // 初始化 UploadManager 对象并进行文件的上传
+                    $uploadMgr = new UploadManager();
+
+                    // 调用 UploadManager 的 putFile 方法进行文件的上传
+                    list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
+//
+//                    echo "\n====> putFile result: \n";
+//                    if ($err !== null) {
+//                        var_dump($err);
+//                    } else {
+//                        var_dump($ret);
+//                    }
+
+                    // TODO 删除本地文件
+                    
+                    return $message->MediaId . '上传结果:' . $ret;
                     break;
                 case 'video':
                     # 视频消息...
