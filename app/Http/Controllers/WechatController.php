@@ -226,7 +226,7 @@ class WechatController extends Controller
     {
         $url = '/pfop/';
 
-        $body = 'bucket=nk110-images&key=' . $file_name . '&fops=avthumb%2Fmp3%2Fab%2F128k%2Far%2F44100%2Facodec%2Flibmp3lame';
+        $body = 'bucket=nk110-images&key=' . $file_name . '&fops=avthumb/mp3/ab/128k/ar/44100/acodec/libmp3lame&notifyURL=http://fake.com/qiniu/notify';
 
         $sign = hash_hmac('sha1', $url . "\n" . $body, env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
         $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
