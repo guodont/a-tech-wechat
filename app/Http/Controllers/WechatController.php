@@ -178,7 +178,7 @@ class WechatController extends Controller
 
                     // TODO 删除本地文件
 
-                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding);
+                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding->getBody()->getContents());
                     break;
                 case 'video':
                     # 视频消息...
@@ -232,7 +232,7 @@ class WechatController extends Controller
         $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
 
         $client = new Client();
-        $response = $client->request('POST', 'http://api.qiniu.com'.$url, [
+        $response = $client->request('POST', 'http://api.qiniu.com' . $url, [
             'headers' => [
                 'Authorization' => 'QBox ' . $token,
                 'Content-Type' => 'application/x-www-form-urlencoded'
