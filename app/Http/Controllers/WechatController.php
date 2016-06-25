@@ -176,9 +176,20 @@ class WechatController extends Controller
 //                        var_dump($ret);
 //                    }
 
+                    $persistentId = json_encode($transcoding->getBody()->getContents())['persistentId'];
+
+                    // 查询状态
+                    $client = new Client();
+                    $url = 'http://api.qiniu.com/status/get/prefop?id=' . $persistentId;
+                    $response = $client->request('GET', $url);
+
+                    $data = json_decode($response->getBody()->getContents());
+
+                    $newKey = $data['items'][0]['key'];
+
                     // TODO 删除本地文件
 
-                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding->getBody()->getContents());
+                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding->getBody()->getContents()) . '新文件名:' . $newKey;
                     break;
                 case 'video':
                     # 视频消息...
