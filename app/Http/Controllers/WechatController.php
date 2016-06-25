@@ -176,7 +176,7 @@ class WechatController extends Controller
 //                        var_dump($ret);
 //                    }
 
-                    $persistentId = json_encode($transcoding->getBody()->getContents())['persistentId'];
+                    $persistentId = json_decode($transcoding->getBody()->getContents())['persistentId'];
 
                     // 查询状态
                     $client = new Client();
