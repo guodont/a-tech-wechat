@@ -116,7 +116,7 @@
             </div>
             <div class="weui_media_bd">
                 <h4 class="weui_media_title">{{ $question->user->name }}</h4>
-                <p class="weui_media_desc">发布于{{ date('y-m-d H:i',$question->whenCreated) }}</p>
+                <p class="weui_media_desc">发布于{{ date('Y-m-d H:i',$question->whenCreated) }}</p>
             </div>
         </a>
     </div>
@@ -179,7 +179,7 @@
                 </div>
                 <div class="weui_media_bd">
                     <h4 class="weui_media_title">{{ $question->expert->realName }}</h4>
-                    <p class="weui_media_desc">回答于{{ date('y-m-d H:i',$question->whenUpdated) }}</p>
+                    <p class="weui_media_desc">回答于{{ date('Y-m-d H:i',$question->whenUpdated) }}</p>
                 </div>
             </a>
         </div>
