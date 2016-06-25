@@ -176,14 +176,14 @@ class WechatController extends Controller
 //                        var_dump($ret);
 //                    }
 
-                    $persistentId = json_decode($transcoding->getBody()->getContents())['persistentId'];
+                    $persistentId = json_decode($transcoding->getBody()->getContents(),true)['persistentId'];
 
                     // 查询状态
                     $client = new Client();
                     $url = 'http://api.qiniu.com/status/get/prefop?id=' . $persistentId;
                     $response = $client->request('GET', $url);
 
-                    $data = json_decode($response->getBody()->getContents());
+                    $data = json_decode($response->getBody()->getContents(),true);
 
                     $newKey = $data['items'][0]['key'];
 
