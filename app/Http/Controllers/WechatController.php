@@ -166,7 +166,6 @@ class WechatController extends Controller
                     // 调用 UploadManager 的 putFile 方法进行文件的上传
                     list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
 //
-
                     //  转码
                     $transcoding = $this->transcodingFile($voiceFileName);
 //                    echo "\n====> putFile result: \n";
@@ -189,8 +188,32 @@ class WechatController extends Controller
 
                     // TODO 删除本地文件
 
-                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding->getBody()->getContents());
+//                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding->getBody()->getContents());
+
+
+                    $voice_question = array('categoryId' => '73', 'title' => '来自微信的语音问题', 'content' => '来自微信的语音问题', 'mediaId' => $voiceFileName . '_2');
+
+                    $client2 = new Client(['base_uri' => $this->base_url]);
+
+                    $response = $client2->request('POST', 'wechat/question', [
+                        'headers' => [
+                            'WECHAT-OPEN-ID' => $message->FromUserName,
+                            'Accept' => 'application/json',
+                            'Content-Type' => 'application/json'
+                        ],
+                        'body' => json_encode($voice_question)
+                    ]);
+
+                    switch ($response->getStatusCode()) {
+                        case 200:
+                            return $userApi->get($message->FromUserName)->nickname . '您好,您的问题已经提交成功,我们的专家将尽快为您解答,解答后将直接回复给您。';
+                            break;
+                        default:
+                            return $userApi->get($message->FromUserName)->nickname . '您好,您的问题提交失败,请确保您已通过微信授权';
+                            break;
+                    }
                     break;
+                
                 case 'video':
                     # 视频消息...
                     break;
@@ -237,7 +260,7 @@ class WechatController extends Controller
     {
         $url = '/pfop/';
 
-        $body = 'bucket=nk110-images&key=' . $file_name . '&fops=avthumb/mp3/ab/128k/ar/44100/acodec/libmp3lame|saveas/' . base64_encode('nk110-images:' . $file_name . '_2') .'&pipeline=nk110-video-queue-1';
+        $body = 'bucket=nk110-images&key=' . $file_name . '&fops=avthumb/mp3/ab/128k/ar/44100/acodec/libmp3lame|saveas/' . base64_encode('nk110-images:' . $file_name . '_2') . '&pipeline=nk110-video-queue-1';
 
         $sign = hash_hmac('sha1', $url . "\n" . $body, env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
         $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
