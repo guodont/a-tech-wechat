@@ -138,7 +138,7 @@ class WechatController extends Controller
                     break;
                 case 'voice':
                     # 语音消息...
-                    $voiceFileName = 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime . '.mp3';
+                    $voiceFileName = 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime;
                     // 下载到本地
                     $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", $voiceFileName);
                     // 上传到七牛
@@ -166,6 +166,9 @@ class WechatController extends Controller
                     // 调用 UploadManager 的 putFile 方法进行文件的上传
                     list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
 //
+
+                    //  转码
+                    $transcoding = $this->transcodingFile($voiceFileName);
 //                    echo "\n====> putFile result: \n";
 //                    if ($err !== null) {
 //                        var_dump($err);
@@ -175,7 +178,7 @@ class WechatController extends Controller
 
                     // TODO 删除本地文件
 
-                    return $message->MediaId . '上传结果:' . json_encode($ret);
+                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding);
                     break;
                 case 'video':
                     # 视频消息...
@@ -204,8 +207,10 @@ class WechatController extends Controller
         $encodedURL = str_replace(array('+', '/'), array('-', '_'), base64_encode($file_url));
         $encodedEntryURI = str_replace(array('+', '/'), array('-', '_'), base64_encode('nk110-' . $file_type . ':wechat_' . $open_id . '_' . $timestamp));
         $url = '/fetch/' . $encodedURL . '/to/' . $encodedEntryURI;
+
         $sign = hash_hmac('sha1', $url . "\n", env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
         $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
+
         $client = new Client();
         $response = $client->request('POST', 'http://iovip.qbox.me' . $url, [
             'headers' => [
@@ -213,6 +218,25 @@ class WechatController extends Controller
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/x-www-form-urlencoded'
             ]
+        ]);
+        return $response;
+    }
+
+    public function transcodingFile($file_name = '')
+    {
+        $url = '/pfop/';
+
+        $sign = hash_hmac('sha1', $url . "\n", env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
+        $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
+
+        $client = new Client();
+        $response = $client->request('POST', 'http://api.qiniu.com' . $url, [
+            'headers' => [
+                'Authorization' => 'QBox ' . $token,
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ],
+            'body' => 'bucket=nk110-images&key=' . $file_name . '&fops=avthumb%2Fmp3%2Fab%2F128k%2Far%2F44100%2Facodec%2Flibmp3lame'
         ]);
         return $response;
     }
