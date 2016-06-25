@@ -232,10 +232,9 @@ class WechatController extends Controller
         $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
 
         $client = new Client();
-        $response = $client->request('POST', 'http://api.qiniu.com' . $url, [
+        $response = $client->request('POST', 'http://api.qiniu.com'.$url, [
             'headers' => [
                 'Authorization' => 'QBox ' . $token,
-                'Accept' => 'application/json',
                 'Content-Type' => 'application/x-www-form-urlencoded'
             ],
             'body' => $body
