@@ -175,7 +175,7 @@ class WechatController extends Controller
 
                     // TODO 删除本地文件
                     
-                    return $message->MediaId . '上传结果:' . $ret;
+                    return $message->MediaId . '上传结果:' . json_encode($ret);
                     break;
                 case 'video':
                     # 视频消息...
