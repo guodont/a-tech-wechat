@@ -55,7 +55,7 @@ class UsersController extends Controller
                 'Content-Type' => 'application/json'
             ]
         ]);
-        
+
         $questions = json_decode($response->getBody());
 
         return view('usercenter', compact('user', 'questions'));
@@ -115,25 +115,25 @@ class UsersController extends Controller
     public function sendTempMsg(Request $request)
     {
 
-
         $userId = $request->input('openId');
         $templateId = $request->input('templateId');
         $url = $request->input('url');
         $color = $request->input('color');
-        $data = json_decode($request->input('data'));
+        $first = $request->input('first');
+        $keyword1 = $request->input('keyword1');
+        $keyword2 = $request->input('keyword2');
+        $keyword3 = $request->input('keyword3');
+        $keyword4 = $request->input('keyword4');
+        $remark = $request->input('remark');
 
-//        $userId = 'o451ewNvK3JukkMqr0BaXw_MnASI';
-//        $templateId = 'K_kz-KlSLOR0MyPJTxgZdKMd6xCkzY-o1VCWcyRgmF0';
-//        $url = 'http://wechat.workerhub.cn/question/92';
-//        $color = '#FF0000';
-//        $data = array(
-//            "first"  => "用户您好，您的提问已有回答",
-//            "keyword1"   => "信息",
-//            "keyword2"  => "刚刚",
-//            "keyword3"  => "新回答",
-//            "keyword4"  => "2016-06-26",
-//            "remark" => "详细结果请点击“详情”查看！",
-//        );
+        $data = array(
+            "first" => $first,
+            "keyword1" => $keyword1,
+            "keyword2" => $keyword2,
+            "keyword3" => $keyword3,
+            "keyword4" => $keyword4,
+            "remark" => $remark,
+        );
 
         $wechat = app('wechat');
 
