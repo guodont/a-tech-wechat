@@ -116,7 +116,7 @@
             </div>
             <div class="weui_media_bd">
                 <h4 class="weui_media_title">{{ $question->user->name }}</h4>
-                <p class="weui_media_desc">发布于{{ date('Y-m-d H:i',$question->whenCreated) }}</p>
+                <p class="weui_media_desc">发布于{{ date('Y-m-d H:i',substr($question->whenCreated,0,10)) }}</p>
             </div>
         </a>
     </div>
@@ -135,7 +135,7 @@
                     <ul class="weui_uploader_files">
                         @foreach(explode(',',$question->images) as $image)
                             <li class="weui_uploader_file">
-                                <img src="{{ $image }}" alt="">
+                                <img src="http://storage.workerhub.cn/{{ $image }}" alt="">
                             </li>
                         @endforeach
                     </ul>
@@ -179,7 +179,7 @@
                 </div>
                 <div class="weui_media_bd">
                     <h4 class="weui_media_title">{{ $question->expert->realName }}</h4>
-                    <p class="weui_media_desc">回答于{{ date('Y-m-d H:i',$question->whenUpdated) }}</p>
+                    <p class="weui_media_desc">回答于{{ date('Y-m-d H:i',substr($question->whenUpdated,0,10)) }}</p>
                 </div>
             </a>
         </div>

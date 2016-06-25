@@ -12,7 +12,7 @@
                         <div class="weui_media_hd">
                             @if(explode(',',$question->images)[0] != null)
                                 <img class="weui_media_appmsg_thumb"
-                                     src="{{ explode(',',$question->images)[0] }}"
+                                     src="http://storage.workerhub.cn/{{ explode(',',$question->images)[0] }}"
                                      alt="">
                             @else
                                 <img class="weui_media_appmsg_thumb"

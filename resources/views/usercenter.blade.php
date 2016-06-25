@@ -22,7 +22,7 @@
                         </div>
                         <div class="weui_media_bd">
                             <h4 class="weui_media_title">{{ $question->title }}</h4>
-                            <p class="weui_media_desc">{{ $question->user->name }} 发布于 {{ date('y-m-d H:i',$question->whenCreated) }}</p>
+                            <p class="weui_media_desc">{{ $question->user->name }} 发布于 {{ date('y-m-d H:i',substr($question->whenCreated,0,10)) }}</p>
                         </div>
                     </a>
                 @endforeach
