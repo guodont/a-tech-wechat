@@ -87,6 +87,7 @@
             left: 45px;
             top: 11px;
         }
+
         .custom-audio-status {
             font-size: 12px;
         }
@@ -147,16 +148,18 @@
                  data-reload="true" data-loop="false">
                 <div class="custom-audio-weixin clearfix">
                     <div>
-
-                        <img class="custom-audio-logo js-not-share gifs"
-                        src="https://img.yzcdn.cn/upload_files/2015/01/26/FoX21i8VqwlCwjyDW618p66vd7g8.png?imageView2/2/w/80/h/80/q/75/format/png"
-                        alt="��Ƶ����logo" width="40" height="40">
+                        @if ($question->user->avatar != '')
+                            <img class="custom-audio-logo js-not-share gifs" width="40" height="40"
+                                 src="http://storage.workerhub.cn/{{ $question->user->avatar }}"/>
+                        @else
+                            <img class="custom-audio-logo js-not-share gifs" width="40" height="40"
+                                 src="http://storage.workerhub.cn/default_avatar.png"/>
+                        @endif
 
                         <span class="custom-audio-bar">
 						<img class="js-animation custom-audio-animation hide js-not-share gifs"
                              src="https://b.yzcdn.cn/v2/image/wap/audio/player.gif" alt="" width="13"
                              height="17"> <i class="custom-audio-animation-static js-animation-static"></i>
-                            <!-- <img class="custom-audio-loading js-loading js-not-share" src="https://b.yzcdn.cn/v2/image/wap/common/loading.gif" alt="loading"> -->
 						<span class="custom-audio-status js-status"></span>
 					</span>
                         <span class="custom-audio-time js-duration"></span>
@@ -189,7 +192,6 @@
             </section>
         </article>
     @endif
-
 
     <script charset="utf-8" src="https://b.yzcdn.cn/v2/build/wap/common_jquery_75554d22a0.js"></script>
     {{--<script charset="utf-8" src="https://b.yzcdn.cn/v2/build/wap/showcase/modules/audio_37df0347f6.js"></script>--}}

@@ -30,6 +30,9 @@
             padding-left:15px;
             padding-top: 20px;
         }
+        hr {
+            border-top: none;
+        }
         h4{
             font-weight:normal !important;
         }
