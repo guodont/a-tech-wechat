@@ -40,8 +40,10 @@ class UsersController extends Controller
     public function userCenter()
     {
         // http://sxnk110.workerhub.cn:9000/api/v1/wechat/my/questions?status=WAIT_RESOLVE&pageSize=10&page=1
-        
+
         $user = session('wechat.oauth_user'); // 拿到授权用户资料
+
+        // TODO 先判断用户是否已绑定农科110账号
 
         $client = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
 
@@ -57,6 +59,8 @@ class UsersController extends Controller
         $questions = json_decode($response->getBody());
 
         return view('usercenter', compact('user', 'questions'));
+
+        // TODO 跳到绑定账号视图
     }
 
     public function auth()
