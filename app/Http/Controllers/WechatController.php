@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use GuzzleHttp\Client;
 use EasyWeChat\Support\Log;
+
+// qiNiu
+
 // 引入鉴权类
 use Qiniu\Auth;
 
@@ -16,9 +19,9 @@ use Qiniu\Storage\UploadManager;
 class WechatController extends Controller
 {
 
-    private $base_url = "http://sxnk110.workerhub.cn:9000/api/v1/";
-    private $auth_url = "http://sxnk110.workerhub.cn:9000/api/v1/wechat_auth";
-
+    const BASE_URL = "http://sxnk110.workerhub.cn:9000/api/v1/";
+    const AUTH_URL = "http://sxnk110.workerhub.cn:9000/api/v1/wechat_auth";
+    const SAVE_PATH = "/home/banana/web/a-tech-wechat/storage/app/public";
 
     /**
      * 处理微信的请求消息
@@ -46,13 +49,12 @@ class WechatController extends Controller
                             return '<a href=\'http://wechat.workerhub.cn/auth\'>微信授权</a>';
                         }
                         if ($message->EventKey == 'NK110_ADD_QUESTION') {
-                            return '请用一段话描述您的问题,并直接回复给此公众号。问题提交成功后我们将返回给您信息。';
+                            return '请用一段话或者一条语音消息描述您的问题,并直接回复给此公众号。问题提交成功后我们将返回给您信息。';
                         }
                     }
                     break;
                 case 'text':
                     # 文字消息...
-                    // TODO 处理消息 提交到 sxnk110.workerhub.cn:9000/question
                     $client = new Client();
                     switch ($message->Content) {
                         case 'post':
@@ -92,10 +94,6 @@ class WechatController extends Controller
 
                             Log::info('结果:' . $response->getStatusCode());
                             Log::info('收到问题消息2');
-
-//                            return '返回结果:' . stream_get_contents($response->getBody());
-//                            return '返回结果:' . $response->getBody()->getContents();
-//                            return '返回结果:' . $response->getStatusCode();
 
                             switch ($response->getStatusCode()) {
                                 case 200:
@@ -140,7 +138,7 @@ class WechatController extends Controller
                     # 语音消息...
                     $voiceFileName = 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime;
                     // 下载到本地
-                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", $voiceFileName);
+                    $temporary->download($message->MediaId, SAVE_PATH, $voiceFileName);
                     // 上传到七牛
                     $accessKey = env("QI_NIU_ACCESS_KEY", "Access_Key");
                     $secretKey = env("QI_NIU_SECRET_KEY", 'Secret_Key');
@@ -155,7 +153,7 @@ class WechatController extends Controller
                     $token = $auth->uploadToken($bucket);
 
                     // 要上传文件的本地路径
-                    $filePath = '/home/banana/web/a-tech-wechat/storage/app/public/' . $voiceFileName . '.amr';
+                    $filePath = SAVE_PATH . $voiceFileName . '.amr';
 
                     // 上传到七牛后保存的文件名
                     $key = $voiceFileName;
@@ -168,28 +166,6 @@ class WechatController extends Controller
 //
                     //  转码
                     $transcoding = $this->transcodingFile($voiceFileName);
-//                    echo "\n====> putFile result: \n";
-//                    if ($err !== null) {
-//                        var_dump($err);
-//                    } else {
-//                        var_dump($ret);
-//                    }
-
-//                    $persistentId = json_decode($transcoding->getBody()->getContents(), true)['persistentId'];
-//
-//                    // 查询状态
-//                    $client = new Client();
-//                    $url = 'http://api.qiniu.com/status/get/prefop?id=' . $persistentId;
-//                    $response = $client->request('GET', $url);
-//
-//                    $data = json_decode($response->getBody()->getContents(), true);
-//
-//                    $newKey = $data['items'][0]['key'];
-
-                    // TODO 删除本地文件
-
-//                    return $message->MediaId . '上传结果:' . json_encode($ret) . '转码结果:' . json_encode($transcoding->getBody()->getContents());
-
 
                     $voice_question = array('categoryId' => '73', 'title' => '来自微信的语音问题', 'content' => '来自微信的语音问题', 'mediaId' => $voiceFileName . '_2');
 
@@ -231,11 +207,18 @@ class WechatController extends Controller
 
         });
 
-//        Log::info('return response.');
-
         return $wechat->server->serve();
     }
 
+    /**
+     * 
+     * 抓取并转存文件
+     * @param string $file_url
+     * @param string $file_type
+     * @param string $open_id
+     * @param string $timestamp
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
     public function fetchFile($file_url = '', $file_type = 'images', $open_id = '', $timestamp = '')
     {
         $encodedURL = str_replace(array('+', '/'), array('-', '_'), base64_encode($file_url));
@@ -256,6 +239,12 @@ class WechatController extends Controller
         return $response;
     }
 
+    /**
+     * 
+     * 转码并转存文件
+     * @param string $file_name
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
     public function transcodingFile($file_name = '')
     {
         $url = '/pfop/';
