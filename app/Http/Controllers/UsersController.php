@@ -88,8 +88,8 @@ class UsersController extends Controller
 
         $response = $this->fetchFile($avatar, 'images', $openId);
 
-        $avatarKey = json_decode($response->getBody()->getContents())['key'];
-        
+        $avatarKey = json_decode($response->getBody()->getContents(), true)['key'];
+
         $data = array('phone' => $phone, 'password' => $password, 'openId' => $openId, 'avatar' => $avatarKey, 'userName' => $userName);
 
         $client2 = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
