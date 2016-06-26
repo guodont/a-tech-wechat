@@ -21,7 +21,6 @@
             $scope.reddit = new Reddit();
         });
 
-        // Reddit constructor function to encapsulate HTTP and pagination logic
         myApp.factory('Reddit', function ($http) {
             var Reddit = function () {
                 this.items = [];
@@ -37,15 +36,15 @@
 
                 $http.get(url).success(function (data) {
                     var items = data;
+                    if (items.length == 0)
+                        return;
                     for (var i = 0; i < items.length; i++) {
                         this.items.push(items[i]);
                     }
                     this.page++;
                     this.busy = false;
                 }.bind(this));
-
             };
-
             return Reddit;
         });
     </script>

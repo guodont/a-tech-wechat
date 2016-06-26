@@ -11,7 +11,7 @@
             <div class="weui_media_bd">
                 <h4 class="weui_media_title">{{ item.title }}</h4>
                 <p class="weui_media_desc">{{ item.user.name }}
-                    发布于 {{ item.whenCreated }}</p>
+                    发布于 {{ item.whenCreated | date:'yyyy-MM-dd HH:mm'}}</p>
             </div>
         </a>
         <a href="" ng-show='reddit.busy' class="weui_media_box weui_media_appmsg">
