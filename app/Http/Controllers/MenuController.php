@@ -72,7 +72,7 @@ class MenuController extends Controller
                         "type" => "view",
                         "name" => "我的问题",
                         "url" => "http://wechat.workerhub.cn/userCenter"
-                    ]
+                    ],
                 ],
             ],
         ];
@@ -82,6 +82,11 @@ class MenuController extends Controller
     public function menus()
     {
         return $this->menu->current();
+    }
+    
+    public function deleteAll()
+    {
+        return $this->menu->destroy();
     }
 
 }
