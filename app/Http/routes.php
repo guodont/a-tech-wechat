@@ -31,7 +31,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/user/{openId}', 'UsersController@user');
     Route::get('/menu', 'MenuController@menu');
     Route::get('/menus', 'MenuController@menus');
-    Route::get('/questions', 'QuestionController@questions');
+    Route::get('/questions', 'QuestionController@questions2');
     Route::get('/question/{questionId}', 'QuestionController@question');
 });
 

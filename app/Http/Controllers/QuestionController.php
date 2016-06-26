@@ -18,6 +18,11 @@ class QuestionController extends Controller
         return view('questions', ['questions' => $questions]);
     }
 
+    public function questions2()
+    {
+        return view('questions2');
+    }
+
     public function question($questionId)
     {
         $client = new Client();

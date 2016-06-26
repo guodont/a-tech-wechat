@@ -19,7 +19,6 @@
                                      src="http://storage.workerhub.cn/image/icon/icon_question.png"
                                      alt="">
                             @endif
-
                         </div>
                         <div class="weui_media_bd">
                             <h4 class="weui_media_title">{{ $question->title }}</h4>
