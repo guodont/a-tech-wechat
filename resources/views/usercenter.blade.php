@@ -16,9 +16,15 @@
                 @foreach ($questions as $question)
                     <a href="./question/{{ $question->id }}" class="weui_media_box weui_media_appmsg">
                         <div class="weui_media_hd">
-                            <img class="weui_media_appmsg_thumb"
-                                 src="{{ explode(',',$question->images)[0] }}"
-                                 alt="">
+                            @if(explode(',',$question->images)[0] != null)
+                                <img class="weui_media_appmsg_thumb"
+                                     src="http://storage.workerhub.cn/{{ explode(',',$question->images)[0] }}"
+                                     alt="">
+                            @else
+                                <img class="weui_media_appmsg_thumb"
+                                     src="http://storage.workerhub.cn/image/icon/icon_question.png"
+                                     alt="">
+                            @endif
                         </div>
                         <div class="weui_media_bd">
                             <h4 class="weui_media_title">{{ $question->title }}</h4>

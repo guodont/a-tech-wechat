@@ -86,7 +86,11 @@ class UsersController extends Controller
         $phone = $request->input('phone');
         $password = $request->input('password');
 
-        $data = array('phone' => $phone, 'password' => $password, 'openId' => $openId, 'avatar' => $avatar, 'userName' => $userName);
+        $response = $this->fetchFile($avatar, 'images', $openId);
+
+        $avatarKey = json_decode($response->getBody()->getContents())['key'];
+        
+        $data = array('phone' => $phone, 'password' => $password, 'openId' => $openId, 'avatar' => $avatarKey, 'userName' => $userName);
 
         $client2 = new Client(['base_uri' => 'http://sxnk110.workerhub.cn:9000/api/v1/']);
 
@@ -155,5 +159,25 @@ class UsersController extends Controller
 
         $messageId = $notice->uses($templateId)->withUrl($url)->andData($data)->color($color)->andReceiver($userId)->send();
 
+    }
+
+    public function fetchFile($file_url = '', $file_type = 'images', $open_id = '')
+    {
+        $encodedURL = str_replace(array('+', '/'), array('-', '_'), base64_encode($file_url));
+        $encodedEntryURI = str_replace(array('+', '/'), array('-', '_'), base64_encode('nk110-' . $file_type . ':wechat_' . $open_id . '_avatar'));
+        $url = '/fetch/' . $encodedURL . '/to/' . $encodedEntryURI;
+
+        $sign = hash_hmac('sha1', $url . "\n", env('QINIU_SECRET_KEY', 'qiniu_secret_key'), true);
+        $token = env('QINIU_ACCESS_KEY', 'qiniu_access_key') . ':' . str_replace(array('+', '/'), array('-', '_'), base64_encode($sign));
+
+        $client = new Client();
+        $response = $client->request('POST', 'http://iovip.qbox.me' . $url, [
+            'headers' => [
+                'Authorization' => 'QBox ' . $token,
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ]
+        ]);
+        return $response;
     }
 }
