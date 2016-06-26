@@ -88,7 +88,7 @@ class WechatController extends Controller
 
 //                            Log::info('认证结果' . $auth_response->getStatusCode());
 
-                            $client2 = new Client(['base_uri' => $this->base_url]);
+                            $client2 = new Client(['base_uri' => WechatController::BASE_URL]);
 
                             Log::info('收到问题消息');
 
@@ -147,7 +147,7 @@ class WechatController extends Controller
                     # 语音消息...
                     $voiceFileName = 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime;
                     // 下载到本地
-                    $temporary->download($message->MediaId, SAVE_PATH, $voiceFileName);
+                    $temporary->download($message->MediaId, WechatController::SAVE_PATH, $voiceFileName);
                     // 上传到七牛
                     $accessKey = env("QI_NIU_ACCESS_KEY", "Access_Key");
                     $secretKey = env("QI_NIU_SECRET_KEY", 'Secret_Key');
@@ -162,7 +162,7 @@ class WechatController extends Controller
                     $token = $auth->uploadToken($bucket);
 
                     // 要上传文件的本地路径
-                    $filePath = SAVE_PATH . $voiceFileName . '.amr';
+                    $filePath = WechatController::SAVE_PATH . $voiceFileName . '.amr';
 
                     // 上传到七牛后保存的文件名
                     $key = $voiceFileName;
@@ -178,7 +178,7 @@ class WechatController extends Controller
 
                     $voice_question = array('categoryId' => '73', 'title' => '来自微信的语音问题', 'content' => '来自微信的语音问题', 'mediaId' => $voiceFileName . '_2');
 
-                    $client2 = new Client(['base_uri' => $this->base_url]);
+                    $client2 = new Client(['base_uri' => WechatController::BASE_URL]);
 
                     $response = $client2->request('POST', 'wechat/question', [
                         'headers' => [
@@ -198,19 +198,23 @@ class WechatController extends Controller
                             break;
                     }
                     break;
-                
+
                 case 'video':
                     # 视频消息...
+                    return '这段视频拍的不错';
                     break;
                 case 'location':
                     # 坐标消息...
+                    return '坐标消息';
                     break;
                 case 'link':
                     # 链接消息...
+                    return '链接消息';
                     break;
                 // ... 其它消息
                 default:
                     # code...
+                    return '其它消息';
                     break;
             }
 
@@ -220,7 +224,7 @@ class WechatController extends Controller
     }
 
     /**
-     * 
+     *
      * 抓取并转存文件
      * @param string $file_url
      * @param string $file_type
@@ -249,7 +253,7 @@ class WechatController extends Controller
     }
 
     /**
-     * 
+     *
      * 转码并转存文件
      * @param string $file_name
      * @return mixed|\Psr\Http\Message\ResponseInterface
