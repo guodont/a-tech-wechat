@@ -21,7 +21,7 @@ class WechatController extends Controller
 
     const BASE_URL = "http://sxnk110.workerhub.cn:9000/api/v1/";
     const AUTH_URL = "http://sxnk110.workerhub.cn:9000/api/v1/wechat_auth";
-    const SAVE_PATH = "/home/banana/web/a-tech-wechat/storage/app/public";
+    const SAVE_PATH = "/home/banana/web/a-tech-wechat/storage/app/public/";
 
     /**
      * 处理微信的请求消息
@@ -88,7 +88,7 @@ class WechatController extends Controller
 
 //                            Log::info('认证结果' . $auth_response->getStatusCode());
 
-                            $client2 = new Client(['base_uri' => "http://sxnk110.workerhub.cn:9000/api/v1/"]);
+                            $client2 = new Client(['base_uri' => WechatController::BASE_URL]);
 
                             Log::info('收到问题消息');
 
@@ -147,7 +147,7 @@ class WechatController extends Controller
                     # 语音消息...
                     $voiceFileName = 'wechat_voice' . $message->FromUserName . "_" . $message->CreateTime;
                     // 下载到本地
-                    $temporary->download($message->MediaId, "/home/banana/web/a-tech-wechat/storage/app/public", $voiceFileName);
+                    $temporary->download($message->MediaId, WechatController::SAVE_PATH, $voiceFileName);
                     // 上传到七牛
                     $accessKey = env("QI_NIU_ACCESS_KEY", "Access_Key");
                     $secretKey = env("QI_NIU_SECRET_KEY", 'Secret_Key');
@@ -162,7 +162,7 @@ class WechatController extends Controller
                     $token = $auth->uploadToken($bucket);
 
                     // 要上传文件的本地路径
-                    $filePath = "/home/banana/web/a-tech-wechat/storage/app/public" . $voiceFileName . '.amr';
+                    $filePath = WechatController::SAVE_PATH . $voiceFileName . '.amr';
 
                     // 上传到七牛后保存的文件名
                     $key = $voiceFileName;
@@ -178,7 +178,7 @@ class WechatController extends Controller
 
                     $voice_question = array('categoryId' => '73', 'title' => '来自微信的语音问题', 'content' => '来自微信的语音问题', 'mediaId' => $voiceFileName . '_2');
 
-                    $client2 = new Client(['base_uri' => "http://sxnk110.workerhub.cn:9000/api/v1/"]);
+                    $client2 = new Client(['base_uri' => WechatController::BASE_URL]);
 
                     $response = $client2->request('POST', 'wechat/question', [
                         'headers' => [

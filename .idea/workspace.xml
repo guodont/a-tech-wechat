@@ -102,9 +102,11 @@
       <file leaf-file-name="WechatController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/WechatController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-              <folding />
+            <state relative-caret-position="168">
+              <caret line="184" column="47" selection-start-line="184" selection-start-column="47" selection-end-line="184" selection-end-column="47" />
+              <folding>
+                <element signature="e#40#68#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -376,7 +378,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65862000" />
+    <option name="totallyTimeSpent" value="66017000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="6" y="32" width="1280" height="735" extended-state="6" />
@@ -827,9 +829,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/WechatController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="168">
+          <caret line="184" column="47" selection-start-line="184" selection-start-column="47" selection-end-line="184" selection-end-column="47" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
