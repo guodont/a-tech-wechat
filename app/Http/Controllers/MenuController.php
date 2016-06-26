@@ -59,6 +59,11 @@ class MenuController extends Controller
                         "name" => "绑定农科110账号",
                         "key"  => "NK110_BIND_ACCOUNT"
                     ],
+                    [
+                        "type" => "click",
+                        "name" => "下载农事易客户端",
+                        "key"  => "NK110_DOWNLOAD_APP"
+                    ],
 //                    [
 //                        "type" => "click",
 //                        "name" => "微信授权",

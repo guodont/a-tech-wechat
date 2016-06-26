@@ -45,6 +45,9 @@ class WechatController extends Controller
                         if ($message->EventKey == 'NK110_BIND_ACCOUNT') {
                             return "<a href='http://wechat.workerhub.cn/bindAccount'>点此绑定农科110账号</a>";
                         }
+                        if ($message->EventKey == 'NK110_DOWNLOAD_APP') {
+                            return "<a href='http://fir.im/lacd'>点此下载农事易App</a>";
+                        }
                         if ($message->EventKey == 'NK110_AUTH') {
                             return '<a href=\'http://wechat.workerhub.cn/auth\'>微信授权</a>';
                         }
