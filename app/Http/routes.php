@@ -30,7 +30,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/users', 'UsersController@users');
     Route::get('/user/{openId}', 'UsersController@user');
     Route::get('/menu', 'MenuController@menu');
-    Route::get('/deleteMenu', 'MenuController@deleteAll');
     Route::get('/menus', 'MenuController@menus');
     Route::get('/questions', 'QuestionController@questions2');
     Route::get('/question/{questionId}', 'QuestionController@question');

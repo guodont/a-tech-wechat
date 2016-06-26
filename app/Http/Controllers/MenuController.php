@@ -48,11 +48,11 @@ class MenuController extends Controller
                         "name" => "投诉建议",
                         "key" => "NK110_COMPLAIN"
                     ],
-                    [
-                        "type" => "view",
-                        "name" => "搜索",
-                        "url" => "http://www.baidu.com/"
-                    ],
+//                    [
+//                        "type" => "view",
+//                        "name" => "搜索",
+//                        "url" => "http://www.baidu.com/"
+//                    ],
                     [
                         "type" => "click",
                         "name" => "绑定农科110账号",
