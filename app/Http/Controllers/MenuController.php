@@ -33,31 +33,41 @@ class MenuController extends Controller
             ],
             [
                 "type" => "view",
-                "name" => "个人中心",
-                "url"  => "http://wechat.workerhub.cn/userCenter"
+                "name" => "热门问题",
+                "url"  => "http://wechat.workerhub.cn/questions"
             ],
             [
-                "name"       => "测试",
+                "name"       => "我的",
                 "sub_button" => [
+                    [
+                        "type" => "click",
+                        "name" => "关于我们",
+                        "key"  => "NK110_ABOUT_US"
+                    ],
+                    [
+                        "type" => "click",
+                        "name" => "投诉建议",
+                        "key"  => "NK110_COMPLAIN"
+                    ],
                     [
                         "type" => "view",
                         "name" => "搜索",
                         "url"  => "http://www.baidu.com/"
                     ],
                     [
-                        "type" => "view",
-                        "name" => "热门问题",
-                        "url"  => "http://wechat.workerhub.cn/questions"
-                    ],
-                    [
                         "type" => "click",
                         "name" => "绑定农科110账号",
                         "key"  => "NK110_BIND_ACCOUNT"
                     ],
+//                    [
+//                        "type" => "click",
+//                        "name" => "微信授权",
+//                        "key" => "NK110_AUTH"
+//                    ],
                     [
-                        "type" => "click",
-                        "name" => "微信授权",
-                        "key" => "NK110_AUTH"
+                        "type" => "view",
+                        "name" => "我的问题",
+                        "url" => "http://wechat.workerhub.cn/userCenter"
                     ],
                 ],
             ],

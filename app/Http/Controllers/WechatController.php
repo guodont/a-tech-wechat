@@ -51,6 +51,12 @@ class WechatController extends Controller
                         if ($message->EventKey == 'NK110_ADD_QUESTION') {
                             return '请用一段话或者一条语音消息描述您的问题,并直接回复给此公众号。问题提交成功后我们将返回给您信息。';
                         }
+                        if ($message->EventKey == 'NK110_ABOUT_US') {
+                            return '农科110';
+                        }
+                        if ($message->EventKey == 'NK110_COMPLAIN') {
+                            return '投诉建议请直接在消息前加"反馈:" 例如:(反馈:这里写对我们的意见建议~)';
+                        }
                     }
                     break;
                 case 'text':
