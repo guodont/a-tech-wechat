@@ -43,11 +43,11 @@ class MenuController extends Controller
                         "name" => "关于我们",
                         "key" => "NK110_ABOUT_US"
                     ],
-                    [
-                        "type" => "click",
-                        "name" => "投诉建议",
-                        "key" => "NK110_COMPLAIN"
-                    ],
+//                    [
+//                        "type" => "click",
+//                        "name" => "投诉建议",
+//                        "key" => "NK110_COMPLAIN"
+//                    ],
 //                    [
 //                        "type" => "view",
 //                        "name" => "搜索",
@@ -58,10 +58,15 @@ class MenuController extends Controller
                         "name" => "绑定农科110账号",
                         "key" => "NK110_BIND_ACCOUNT"
                     ],
+//                    [
+//                        "type" => "click",
+//                        "name" => "下载农事易客户端",
+//                        "key" => "NK110_DOWNLOAD_APP"
+//                    ],
                     [
-                        "type" => "click",
-                        "name" => "下载农事易客户端",
-                        "key" => "NK110_DOWNLOAD_APP"
+                        "type" => "view",
+                        "name" => "下载农事易App",
+                        "url" => "http://a.app.qq.com/o/simple.jsp?pkgname=com.sxau.agriculture"
                     ],
 //                    [
 //                        "type" => "click",
