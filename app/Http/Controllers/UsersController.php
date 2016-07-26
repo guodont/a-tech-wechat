@@ -98,7 +98,7 @@ class UsersController extends Controller
 
         Log::info('绑定公众号');
 
-        try {
+//        try {
             $response = $client2->request('POST', 'bindWeChat', [
                 'headers' => [
                     'Accept' => 'application/json',
@@ -107,27 +107,27 @@ class UsersController extends Controller
                 'body' => json_encode($data)
             ]);
 
-            Log::info('结果:' . $response->getStatusCode());
-
-            $info = [
-                'title' =>'账号绑定成功',
-                'message' =>'您的农科110账号与微信已成功绑定!',
-                'icon' =>'weui_icon_success weui_icon_msg'
-            ];
-
-            return view('info', compact('info', 'info'));
-
-        } catch (BadRequestException $exception) {
-            $info = [
-                'title' =>'账号绑定失败',
-                'message' =>'账号绑定失败,请检查手机号和密码是否正确!',
-                'icon' =>'weui_icon_msg weui_icon_warn'
-            ];
-
-            return view('info', compact('info', 'info'));
-
-        }
-        
+//            Log::info('结果:' . $response->getStatusCode());
+//
+//            $info = [
+//                'title' =>'账号绑定成功',
+//                'message' =>'您的农科110账号与微信已成功绑定!',
+//                'icon' =>'weui_icon_success weui_icon_msg'
+//            ];
+//
+//            return view('info', compact('info', 'info'));
+//
+//        } catch (\Exception $exception) {
+//            $info = [
+//                'title' =>'账号绑定失败',
+//                'message' =>'账号绑定失败,请检查手机号和密码是否正确!',
+//                'icon' =>'weui_icon_msg weui_icon_warn'
+//            ];
+//
+//            return view('info', compact('info', 'info'));
+//
+//        }
+//        
 
 //        $wechat = app('wechat');
 //
@@ -139,20 +139,21 @@ class UsersController extends Controller
 //        警告: weui_icon_safe weui_icon_safe_warn
 //        错误: weui_icon_msg weui_icon_warn
 
-//        if($response->getStatusCode() =='200' || $response->getStatusCode() =='201') {
-//            $info = [
-//                'title' =>'账号绑定成功',
-//                'message' =>'您的农科110账号与微信已成功绑定!',
-//                'icon' =>'weui_icon_success weui_icon_msg'
-//            ];
-//        } else{
-//            $info = [
-//                'title' =>'账号绑定失败',
-//                'message' =>'账号绑定失败,请检查手机号和密码是否正确!',
-//                'icon' =>'weui_icon_msg weui_icon_warn'
-//            ];
-//        }
+        if($response->getStatusCode() =='200' || $response->getStatusCode() =='201') {
+            $info = [
+                'title' =>'账号绑定成功',
+                'message' =>'您的农科110账号与微信已成功绑定!',
+                'icon' =>'weui_icon_success weui_icon_msg'
+            ];
+        } else{
+            $info = [
+                'title' =>'账号绑定失败',
+                'message' =>'账号绑定失败,请检查手机号和密码是否正确!',
+                'icon' =>'weui_icon_msg weui_icon_warn'
+            ];
+        }
 
+        return view('info', compact('info', 'info'));
 
     }
 
