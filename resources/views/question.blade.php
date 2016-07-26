@@ -135,11 +135,13 @@
                     <ul class="weui_uploader_files">
                         @foreach(explode(',',$question->images) as $image)
                             <li class="weui_uploader_file">
-                                <img src="http://storage.workerhub.cn/{{ $image }}" alt="">
+                                <img data-s="300,640" data-type="jpeg" data-src="http://storage.workerhub.cn/{{ $image }}" style="width: 100% !important; height: auto !important; visibility: visible !important;" data-ratio="0.6630630630630631" data-w="" _width="100%" src="http://storage.workerhub.cn/{{ $image }}">
+                                {{--<img src="http://storage.workerhub.cn/{{ $image }}" alt="">--}}
                             </li>
                         @endforeach
                     </ul>
                 </div>
+
             </article>
         </div>
     @else
