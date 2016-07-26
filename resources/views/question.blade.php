@@ -135,12 +135,8 @@
                     <ul class="weui_uploader_files">
                         @foreach(explode(',',$question->images) as $image)
                             <li class="weui_uploader_file">
-                                <img data-s="300,640" data-type="jpeg"
-                                     data-src="http://storage.workerhub.cn/{{ $image }}"
-                                     style="width: 100% !important; height: auto !important; visibility: visible !important;"
-                                     data-ratio="0.6630630630630631" data-w="" _width="100%"
+                                <img name="question_img" data-src="http://storage.workerhub.cn/{{ $image }}"
                                      src="http://storage.workerhub.cn/{{ $image }}">
-                                {{--<img src="http://storage.workerhub.cn/{{ $image }}" alt="">--}}
                             </li>
                         @endforeach
                     </ul>
@@ -470,7 +466,8 @@
                 'current': curSrc,
                 'urls': srcList
             });
-        };
+        }
+        ;
 
         (function ($) {
             //下面是获取当前页面所有的img的src 转成数组 并且 转换成json格式
@@ -478,14 +475,14 @@
             var i = 0;
             var src = [];
             var json = null;
-            aa = $('img');
+            aa = $("img[name='question_img']");
             for (i = 0; i < aa.length; i++) {
                 src[i] = aa[i].src;    //把所有的src存到数组里
             }
             var srcList = arrayToJson(src); //转换成json并赋值给srcList
             //下面是点击图片的时候获取当前第几个图片并且启用咱们做的调用微信图片浏览器的函数
-            $('img').click(function () {
-                var index = $('img').index(this);
+            $("img[name='question_img']").click(function () {
+                var index = $("img[name='question_img']").index(this);
                 imagePreview(srcList[index], srcList);
             });
 
