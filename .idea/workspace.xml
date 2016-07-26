@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9cb0a285-82b6-44f3-a6fe-7ba9873f5203" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/question.blade.php" afterPath="$PROJECT_DIR$/resources/views/question.blade.php" />
     </list>
     <ignored path="a-tech-wechat.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,9 +40,11 @@
       <file leaf-file-name="question.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/question.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="153" column="28" selection-start-line="153" selection-start-column="28" selection-end-line="153" selection-end-column="28" />
-              <folding />
+            <state relative-caret-position="410">
+              <caret line="252" column="13" selection-start-line="252" selection-start-column="13" selection-end-line="252" selection-end-column="13" />
+              <folding>
+                <element signature="e#4068#4156#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -141,7 +144,6 @@
         <option value="$PROJECT_DIR$/resources/assets/css/style.css" />
         <option value="$PROJECT_DIR$/resources/views/layouts/master.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" />
-        <option value="$PROJECT_DIR$/resources/views/question.blade.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/resources/views/usercenter.blade.php" />
@@ -159,6 +161,7 @@
         <option value="$PROJECT_DIR$/resources/views/info.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/bindaccount.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" />
+        <option value="$PROJECT_DIR$/resources/views/question.blade.php" />
       </list>
     </option>
   </component>
@@ -402,12 +405,12 @@
       <workItem from="1466332277915" duration="9017000" />
       <workItem from="1467185793980" duration="5272000" />
       <workItem from="1468253955784" duration="1361000" />
-      <workItem from="1469500959194" duration="2538000" />
+      <workItem from="1469500959194" duration="2909000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75600000" />
+    <option name="totallyTimeSpent" value="75971000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -816,9 +819,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/question.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="153" column="28" selection-start-line="153" selection-start-column="28" selection-end-line="153" selection-end-column="28" />
-          <folding />
+        <state relative-caret-position="410">
+          <caret line="252" column="13" selection-start-line="252" selection-start-column="13" selection-end-line="252" selection-end-column="13" />
+          <folding>
+            <element signature="e#4068#4156#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
