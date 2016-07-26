@@ -114,12 +114,18 @@ class UsersController extends Controller
                 'message' =>'您的农科110账号与微信已成功绑定!',
                 'icon' =>'weui_icon_success weui_icon_msg'
             ];
+
+            return view('info', compact('info', 'info'));
+
         } catch (BadRequestException $exception) {
             $info = [
                 'title' =>'账号绑定失败',
                 'message' =>'账号绑定失败,请检查手机号和密码是否正确!',
                 'icon' =>'weui_icon_msg weui_icon_warn'
             ];
+
+            return view('info', compact('info', 'info'));
+
         }
         
 
@@ -147,7 +153,6 @@ class UsersController extends Controller
 //            ];
 //        }
 
-        return view('info', compact('info', 'info'));
 
     }
 
