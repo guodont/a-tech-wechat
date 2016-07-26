@@ -7,7 +7,6 @@
         <div class="weui_icon_area">
             <img style="max-height: 50px;max-width: 50px;" src="{{ $user->getAvatar() }}" alt="">
         </div>
-        <p>微信OPEN_ID: {{ $user->getId() }}</p>
         <p>微信ID: {{ $user->getName() }}</p>
     </div>
     <form action="./doBindAccount" method="post">
@@ -27,7 +26,7 @@
                     <label class="weui_label">密码</label>
                 </div>
                 <div class="weui_cell_bd weui_cell_primary">
-                    <input class="weui_input" type="text"  name="password" placeholder="请输入密码"></div>
+                    <input class="weui_input" type="text" name="password" placeholder="请输入密码"></div>
             </div>
         </div>
         <div class="weui_btn_area">

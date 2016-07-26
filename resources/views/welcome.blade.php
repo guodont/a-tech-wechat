@@ -2,9 +2,7 @@
 <html>
     <head>
         <title>农事易-微信版</title>
-
         <style>
-
             /* latin-ext */
             @font-face {
                 font-family: 'Lato';

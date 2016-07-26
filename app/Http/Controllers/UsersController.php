@@ -74,6 +74,8 @@ class UsersController extends Controller
     {
         $user = session('wechat.oauth_user'); // 拿到授权用户资料
 
+        // TODO 先判断用户是否已绑定农科110账号
+
         return view('bindaccount', compact('user'));
     }
 
@@ -105,13 +107,23 @@ class UsersController extends Controller
 
         Log::info('结果:' . $response->getStatusCode());
 
-        $wechat = app('wechat');
+//        $wechat = app('wechat');
+//
+//        $qrcode = $wechat->qrcode;
+//
+//        $result = $qrcode->temporary(56, 3600);
 
-        $qrcode = $wechat->qrcode;
+//        成功: weui_icon_success weui_icon_msg
+//        警告: weui_icon_safe weui_icon_safe_warn
+//        错误: weui_icon_msg weui_icon_warn
 
-        $result = $qrcode->temporary(56, 3600);
-
-        return view('welcome', compact('result', 'qrcode'));
+        $info = [
+            'title' =>'账号绑定成功',
+            'message' =>'您的农科110账号与微信已成功绑定!',
+            'icon' =>'weui_icon_success weui_icon_msg'
+        ];
+        
+        return view('info', compact('info', 'info'));
 
     }
 
